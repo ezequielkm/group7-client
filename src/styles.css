@@ -87,3 +87,25 @@ select {
   color: #009879;
 }
 
+.linha {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.coluna-esquerda {
+  width: 30%;
+}
+
+.coluna-direita {
+  width: 70%;
+}
+
+@media screen and (max-width: 1600px) {
+  .coluna-esquerda {
+    width: 100%;
+  }
+
+  .coluna-direita {
+    width: 100%;
+  }
+}
