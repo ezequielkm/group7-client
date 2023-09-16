@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Lista, Produto } from 'model/estruturas';
+import { Estoque, Movimentacao } from 'model/estruturas';
 
 @Component({
   selector: 'app-estoque',
@@ -7,82 +7,75 @@ import { Lista, Produto } from 'model/estruturas';
   styleUrls: ['./estoque.component.css']
 })
 export class EstoqueComponent {
-  @Input() lista: Lista;
+  @Input() estoque: Estoque;
 
-  produto: Produto;
-  idLista: number;
-  listaDeProdutos: Produto[];
-  nomeDoProduto: string;
-  unidadeDeMedida: string;
+  movimentacao: Movimentacao;
+  listaDeMovimentacoes: Movimentacao[];
+  tipoMovimentacao: number;
+  produto: string;
   quantidade: number;
-  statusProduto: number;
-  ultimoIdProduto = 0;
+  preco: number;
 
-  listaDeTodosOsProdutos: Produto[];
-  utlimoIdListaSelecionada: number;
-  mostrarListaDeProdutos: boolean;
+  ultimoIdMovimentacao = 0;
 
-  situacoesLista = [
-    { desc: 'Pendente', val: 0},
-    { desc: 'Comprada', val: 1},
-    { desc: 'Cancelada', val: 2}
-  ]
+  listaDeTodosAsMovimentacoes: Movimentacao[];
+  utlimoIdEstoqueSelecionada: number;
+  mostrarEstoqueDeMovimentacoes: boolean;
 
-  situacoesProduto = [
-    { desc: 'Pendente', val: 0},
-    { desc: 'Comprado', val: 1},
+  tiposDeMovimentacaos = [
+    { desc: 'Entrada', val: 0},
+    { desc: 'Saída', val: 1},
   ]
 
   constructor() {
-    this.lista = new Lista(0, "", new Date(), 0);
+    this.estoque = new Estoque();
+    this.movimentacao = new Movimentacao(0, 0, "", 0, 0);
 
-    this.nomeDoProduto = "";
-    this.idLista = 0;
-    this.unidadeDeMedida = "";
+    this.tipoMovimentacao = 0;
+    this.produto = "";
     this.quantidade = 0;
-    this.listaDeProdutos = [];
-    this.statusProduto = 0;
-    this.produto = new Produto(0, 0, "", "", 0, 0);
+    this.preco = 0;
 
-    this.listaDeTodosOsProdutos = [];
-    this.utlimoIdListaSelecionada = 0;
-    this.mostrarListaDeProdutos = false;
+    this.listaDeMovimentacoes = [];
+
+    this.listaDeTodosAsMovimentacoes = [];
+    this.utlimoIdEstoqueSelecionada = 0;
+    this.mostrarEstoqueDeMovimentacoes = false;
   }
 
   ngOnInit() {
-    this.buscarListaDeProdutos(this.lista.id);
-    this.mostrarListaDeProdutos = true;
+    this.buscarEstoqueDeMovimentacoes(this.estoque.id);
   }
 
-  ngOnChanges() {
-    this.buscarListaDeProdutos(this.lista.id);
-  }
+  // ngOnChanges() {
+  //   this.buscarEstoqueDeMovimentacoes(this.estoque.id);
+  // }
 
-  salvarProduto(){
-    if (this.utlimoIdListaSelecionada != this.lista.id) {
-      this.ultimoIdProduto = 0;
+  salvarMovimentacao(){
+    if (this.utlimoIdEstoqueSelecionada != this.estoque.id) {
+      this.ultimoIdMovimentacao = 0;
     }
 
-    this.ultimoIdProduto ++;
+    this.ultimoIdMovimentacao ++;
 
-    this.produto = this.produto.inserirProduto(this.ultimoIdProduto, this.lista.id, this.nomeDoProduto, this.unidadeDeMedida, this.quantidade, this.statusProduto);
+    this.movimentacao = this.movimentacao.inserirMovimentacao(this.tipoMovimentacao, this.produto, this.quantidade, this.preco);
 
-    this.listaDeProdutos.push(this.produto);
-    this.listaDeTodosOsProdutos.push(this.produto);
+    this.listaDeMovimentacoes.push(this.movimentacao);
+    this.listaDeTodosAsMovimentacoes.push(this.movimentacao);
 
-    this.utlimoIdListaSelecionada = this.lista.id;
+    this.utlimoIdEstoqueSelecionada = this.estoque.id;
 
     this.limparCampos();
   }
 
-  buscarListaDeProdutos(idLista: number) {
-    this.listaDeProdutos = this.listaDeTodosOsProdutos.filter(x => x.idLista === idLista);
+  buscarEstoqueDeMovimentacoes(idEstoque: number) {
+    this.listaDeMovimentacoes = this.listaDeTodosAsMovimentacoes.filter(x => x.idEstoque === idEstoque);
   }
 
   limparCampos() {
-    this.nomeDoProduto = "";
-    this.unidadeDeMedida = "";
+    this.tipoMovimentacao = 0;
+    this.produto = "";
     this.quantidade = 0;
-    this.statusProduto = 0;
+    this.preco = 0;
   }
 }

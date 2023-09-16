@@ -1,57 +1,81 @@
-export class Lista {
+export class Estoque {
   id: number;
   descricao: string;
-  dataModificacaoLista: Date;
-  statusLista: number; //Pendente, Comprada ou Cancelada
-  ultimoIdLista = 0;
 
-  constructor(id: number, descricao: string, dataModificacaoLista: Date, statusLista: number) {
+  constructor() {
+    this.id = 1;
+    this.descricao = "Estoque";
+  }
+
+  inserirEstoque(descricao: string): Estoque {
+    const lista = this.addEstoque(new Date());
+    return lista;
+  }
+
+  addEstoque(dataModificacaoEstoque: Date): Estoque {
+    const lista: Estoque = new Estoque();
+    return lista;
+  }
+}
+
+export class Movimentacao {
+  id: number;
+  idEstoque: number;
+  tipo: number; // 0 = entrada e 1 = saída
+  produto: string;
+  quantidade: number;
+  preco: number;
+  data: Date;
+
+  ultimoIdMovimentacao = 0;
+
+  constructor(id: number, tipo: number, produto: string, quantidade: number, preco: number) {
     this.id = id;
-    this.descricao = descricao;
-    this.dataModificacaoLista = dataModificacaoLista;
-    this.statusLista = statusLista;
+    this.idEstoque = 1;
+    this.tipo = tipo;
+    this.produto = produto;
+    this.quantidade = quantidade;
+    this.preco = preco;
+    this.data = new Date();
   }
 
-  inserirLista(descricao: string, statusLista: number): Lista {
-    this.ultimoIdLista ++;
-    const listaAux = this.addLista(this.ultimoIdLista, descricao, new Date(), statusLista);
-    return listaAux;
+  inserirMovimentacao(tipo: number, produto: string, quantidade: number, preco: number): Movimentacao {
+    this.ultimoIdMovimentacao ++;
+    const lista = this.addMovimentacao(this.ultimoIdMovimentacao, tipo, produto, quantidade, preco);
+    return lista;
   }
 
-  addLista(id: number, descricao: string, dataModificacaoLista: Date, statusLista: number): Lista {
-    const listaAux: Lista = new Lista(id, descricao, dataModificacaoLista, statusLista);
-    this.ultimoIdLista = id;
-    return listaAux;
+  addMovimentacao(id: number, tipo: number, produto: string, quantidade: number, preco: number): Movimentacao {
+    const lista: Movimentacao = new Movimentacao(id, tipo, produto, quantidade, preco);
+    this.ultimoIdMovimentacao = id;
+    return lista;
   }
 }
 
 export class Produto {
   id: number;
-  idLista: number;
-  nomeDoProduto: string;
-  unidadeDeMedida: string;
+  descricao: string;
+  unidade: string;
+  tipoConsumo: number; //0 = revenda e 1 = consumo interno
   quantidade: number;
-  statusProduto: number; //Pendente ou comprado
-  lista: Lista;
+  preco: number;
 
-  constructor(id: number, idLista: number, nomeDoProduto: string, unidadeDeMedida: string, quantidade: number, statusProduto: number) {
+  constructor(id: number, descricao: string, unidade: string, tipoConsumo: number, quantidade: number, preco: number) {
     this.id = id;
-    this.idLista = idLista;
-    this.nomeDoProduto = nomeDoProduto;
-    this.unidadeDeMedida = unidadeDeMedida;
+    this.descricao = descricao;
+    this.unidade = unidade;
+    this.tipoConsumo = tipoConsumo;
     this.quantidade = quantidade;
-    this.statusProduto = statusProduto;
-
-    this.lista = new Lista(0, "", new Date(), 0);
+    this.preco = preco;
   }
 
-  inserirProduto(id: number, idLista: number, nomeDoProduto: string, unidadeDeMedida: string, quantidade: number, statusProduto: number): Produto {
-    const produtoAux = this.addProduto(id, idLista, nomeDoProduto, unidadeDeMedida, quantidade, statusProduto);
+  inserirProduto(id: number, descricao: string, unidade: string, tipoConsumo: number, quantidade: number, preco: number): Produto {
+    const produtoAux = this.addProduto(id, descricao, unidade, tipoConsumo, quantidade, preco);
     return produtoAux;
   }
 
-  addProduto(id: number, idLista: number, nomeDoProduto: string, unidadeDeMedida: string, quantidade: number, statusProduto: number): Produto {
-    const produtoAux: Produto = new Produto(id, idLista, nomeDoProduto, unidadeDeMedida, quantidade, statusProduto);
+  addProduto(id: number, descricao: string, unidade: string, tipoConsumo: number, quantidade: number, preco: number): Produto {
+    const produtoAux: Produto = new Produto(id, descricao, unidade, tipoConsumo, quantidade, preco);
     return produtoAux;
   }
 }
