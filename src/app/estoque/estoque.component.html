@@ -1,0 +1,21 @@
+<html>
+  <h1>Estoque</h1>
+
+  <table id="tabelaDasListas" style="cursor: pointer;" class="styled-table">
+    <thead>
+        <tr>
+          <th style="width: 100px;">Código</th>
+          <th style="width: 100px;">Produto</th>
+          <th style="width: 100px;">Qunatidade</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaDeProdutos">
+          <td>{{item.id}}</td>
+          <td>{{item.nomeDoProduto}}</td>
+          <td>{{item.quantidade}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</html>
