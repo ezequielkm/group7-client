@@ -5,9 +5,16 @@
     <div class="linha">
         <div class="coluna-esquerda">
           <section class="Form">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for estoque>Estoque: {{estoque}}</label><br>
-            </div>
+            </div> -->
+
+            <div class="card-body">
+              <label for estoque><b>Estoque: </b></label><br>
+              <ul *ngIf="estoque">
+                  <li *ngFor="let est of estoque">{{est.descricao}}</li>
+              </ul>
+          </div>
           </section>
 
           <section class="Form">

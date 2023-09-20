@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Estoque } from 'app/_models/estoque';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { EstoqueService } from 'app/_services/estoque.service';
-import { first } from 'rxjs';
+import { first, map } from 'rxjs';
 
 @Component({
   selector: 'app-estoque',
@@ -32,7 +32,7 @@ export class EstoqueComponent {
 
   estoque?: Estoque[];
 
-  constructor(private esoqueService: EstoqueService) {
+  constructor(private estoqueService: EstoqueService) {
     this.estoqueAntigo = new Estoque();
     this.movimentacao = new Movimentacao(0, 0, "", 0, 0);
 
@@ -51,7 +51,9 @@ export class EstoqueComponent {
   ngOnInit() {
     // this.buscarEstoqueDeMovimentacoes(this.estoqueAntigo.id);
 
-    this.esoqueService.getAll().pipe(first()).subscribe(estoque => {
+    // this.estoqueService.getAll().pipe(map(estoques => estoques.map(estoque => estoque.descricao))).subscribe(estoqueNames => console.log(estoqueNames));
+
+    this.estoqueService.getAll().pipe(first()).subscribe(estoque => {
       this.estoque = estoque;
     });
   }
