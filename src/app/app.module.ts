@@ -10,13 +10,15 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { EstoqueComponent } from './estoque/estoque.component';
+import { AddAccountComponent } from './accounts/add-account/add-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    EstoqueComponent
+    EstoqueComponent,
+    AddAccountComponent
   ],
   imports: [
     BrowserModule,

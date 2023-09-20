@@ -1,8 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { environment } from 'environments/environment';
 import { User } from 'app/_models';
+
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -11,4 +13,7 @@ export class UserService {
     getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
+    create(data: any): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/users`, data);
+      }
 }
