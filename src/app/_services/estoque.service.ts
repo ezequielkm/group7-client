@@ -3,17 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'environments/environment';
-import { User } from 'app/_models';
+import { Estoque } from 'app/_models/estoque';
 
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class EstoqueService {
     constructor(private http: HttpClient) { }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
+        return this.http.get<Estoque[]>(`${environment.apiUrl}/estoque`);
     }
+
     create(data: any): Observable<any> {
-        return this.http.post(`${environment.apiUrl}/users`, data);
-      }
+      return this.http.post(`${environment.apiUrl}/estoque`, data);
+    }
 }

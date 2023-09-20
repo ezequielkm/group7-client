@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Estoque, Movimentacao } from 'model/estruturas';
+import { Estoque } from 'app/_models/estoque';
+import { Movimentacao } from 'app/_models/movimentacao';
+import { EstoqueService } from 'app/_services/estoque.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-estoque',
@@ -7,7 +10,7 @@ import { Estoque, Movimentacao } from 'model/estruturas';
   styleUrls: ['./estoque.component.css']
 })
 export class EstoqueComponent {
-  @Input() estoque: Estoque;
+  @Input() estoqueAntigo: Estoque;
 
   movimentacao: Movimentacao;
   listaDeMovimentacoes: Movimentacao[];
@@ -27,8 +30,10 @@ export class EstoqueComponent {
     { desc: 'Saída', val: 1},
   ]
 
-  constructor() {
-    this.estoque = new Estoque();
+  estoque?: Estoque[];
+
+  constructor(private esoqueService: EstoqueService) {
+    this.estoqueAntigo = new Estoque();
     this.movimentacao = new Movimentacao(0, 0, "", 0, 0);
 
     this.tipoMovimentacao = 0;
@@ -44,38 +49,42 @@ export class EstoqueComponent {
   }
 
   ngOnInit() {
-    this.buscarEstoqueDeMovimentacoes(this.estoque.id);
+    // this.buscarEstoqueDeMovimentacoes(this.estoqueAntigo.id);
+
+    this.esoqueService.getAll().pipe(first()).subscribe(estoque => {
+      this.estoque = estoque;
+    });
   }
 
-  // ngOnChanges() {
-  //   this.buscarEstoqueDeMovimentacoes(this.estoque.id);
-  // }
+  ngOnChanges() {
+    // this.buscarEstoqueDeMovimentacoes(this.estoqueAntigo.id);
+  }
 
   salvarMovimentacao(){
-    if (this.utlimoIdEstoqueSelecionada != this.estoque.id) {
-      this.ultimoIdMovimentacao = 0;
-    }
+    // if (this.utlimoIdEstoqueSelecionada != this.estoqueAntigo.id) {
+    //   this.ultimoIdMovimentacao = 0;
+    // }
 
-    this.ultimoIdMovimentacao ++;
+    // this.ultimoIdMovimentacao ++;
 
-    this.movimentacao = this.movimentacao.inserirMovimentacao(this.tipoMovimentacao, this.produto, this.quantidade, this.preco);
+    // this.movimentacao = this.movimentacao.inserirMovimentacao(this.tipoMovimentacao, this.produto, this.quantidade, this.preco);
 
-    this.listaDeMovimentacoes.push(this.movimentacao);
-    this.listaDeTodosAsMovimentacoes.push(this.movimentacao);
+    // this.listaDeMovimentacoes.push(this.movimentacao);
+    // this.listaDeTodosAsMovimentacoes.push(this.movimentacao);
 
-    this.utlimoIdEstoqueSelecionada = this.estoque.id;
+    // this.utlimoIdEstoqueSelecionada = this.estoqueAntigo.id;
 
-    this.limparCampos();
+    // this.limparCampos();
   }
 
   buscarEstoqueDeMovimentacoes(idEstoque: number) {
-    this.listaDeMovimentacoes = this.listaDeTodosAsMovimentacoes.filter(x => x.idEstoque === idEstoque);
+    // this.listaDeMovimentacoes = this.listaDeTodosAsMovimentacoes.filter(x => x.idEstoque === idEstoque);
   }
 
   limparCampos() {
-    this.tipoMovimentacao = 0;
-    this.produto = "";
-    this.quantidade = 0;
-    this.preco = 0;
+    // this.tipoMovimentacao = 0;
+    // this.produto = "";
+    // this.quantidade = 0;
+    // this.preco = 0;
   }
 }
