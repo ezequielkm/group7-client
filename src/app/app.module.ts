@@ -11,6 +11,7 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
+import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddAccountComponent } from './accounts/add-account/add-account.componen
     HomeComponent,
     LoginComponent,
     EstoqueComponent,
-    AddAccountComponent
+    AddAccountComponent,
+    MovimentacaoComponent
   ],
   imports: [
     BrowserModule,
