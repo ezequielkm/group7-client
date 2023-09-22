@@ -16,4 +16,7 @@ export class UserService {
     create(data: any): Observable<any> {
         return this.http.post(`${environment.apiUrl}/users`, data);
       }
+    delete(id: any): Observable<any> {
+        return this.http.delete(`${environment.apiUrl}/users/${id}`);
+      }
 }

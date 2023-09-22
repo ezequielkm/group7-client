@@ -34,7 +34,7 @@ export class EstoqueComponent {
 
   constructor(private estoqueService: EstoqueService) {
     this.estoqueAntigo = new Estoque();
-    this.movimentacao = new Movimentacao(0, 0, "", 0, 0);
+    this.movimentacao = new Movimentacao();
 
     this.tipoMovimentacao = 0;
     this.produto = "";

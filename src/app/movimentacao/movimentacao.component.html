@@ -11,7 +11,7 @@
                   class="form-control"
                   id="produto"
                   required
-                  [(ngModel)]="produto"
+                  [(ngModel)]="movimentacao.produto"
                   name="txtProduto"
                   #txtProduto="ngModel"
                   style="max-width: 450px; width: 100%;">
@@ -25,7 +25,7 @@
             <select class="form-control"
                     id="tipoMovimentacao"
                     required
-                    [(ngModel)]="tipoMovimentacao"
+                    [(ngModel)]="movimentacao.tipo"
                   name="tipoMovimentacao"
                   #power="ngModel">
               <option *ngFor="let item of tiposDeMovimentacaos" [value]="item.val">{{item.desc}}</option>
@@ -38,7 +38,7 @@
                   class="form-control"
                   id="quantidade"
                   required
-                  [(ngModel)]="quantidade"
+                  [(ngModel)]="movimentacao.quantidade"
                   name="txtQuantidade"
                   #txtQuantidade="ngModel"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -54,7 +54,7 @@
                   class="form-control"
                   id="preco"
                   required
-                  [(ngModel)]="preco"
+                  [(ngModel)]="movimentacao.preco"
                   name="txtPreco"
                   #txtPreco="ngModel"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -90,6 +90,7 @@
                 <td>{{item.produto}}</td>
                 <td>{{item.quantidade}}</td>
                 <td>{{tiposDeMovimentacaos[item.tipo].desc}}</td>
+
             </tr>
           </tbody>
         </table>
