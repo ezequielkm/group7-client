@@ -6,12 +6,14 @@ import { LoginComponent } from './login';
 import { AuthGuard } from './_helpers';
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
 import { EstoqueComponent } from './estoque/estoque.component';
+import { Movimentacao } from './_models/movimentacao';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'users', component: AddAccountComponent, canActivate: [AuthGuard]},
   { path: 'estoque', component: EstoqueComponent, canActivate: [AuthGuard] },
+  { path: 'movimentacao', component: Movimentacao, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

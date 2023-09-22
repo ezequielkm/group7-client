@@ -12,6 +12,7 @@ import { LoginComponent } from './login';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
 import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
+import { SaldoEstoqueComponent } from './saldo-estoque/saldo-estoque.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
     LoginComponent,
     EstoqueComponent,
     AddAccountComponent,
-    MovimentacaoComponent
+    MovimentacaoComponent,
+    SaldoEstoqueComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@
                   class="form-control"
                   id="produto"
                   required
-                  [(ngModel)]="produto"
+                  [(ngModel)]="movimentacao.produto"
                   name="txtProduto"
                   #txtProduto="ngModel"
                   style="max-width: 450px; width: 100%;">
@@ -25,7 +25,7 @@
             <select class="form-control"
                     id="tipoMovimentacao"
                     required
-                    [(ngModel)]="tipoMovimentacao"
+                    [(ngModel)]="movimentacao.tipo"
                   name="tipoMovimentacao"
                   #power="ngModel">
               <option *ngFor="let item of tiposDeMovimentacaos" [value]="item.val">{{item.desc}}</option>
@@ -38,7 +38,7 @@
                   class="form-control"
                   id="quantidade"
                   required
-                  [(ngModel)]="quantidade"
+                  [(ngModel)]="movimentacao.quantidade"
                   name="txtQuantidade"
                   #txtQuantidade="ngModel"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -54,13 +54,13 @@
                   class="form-control"
                   id="preco"
                   required
-                  [(ngModel)]="preco"
+                  [(ngModel)]="movimentacao.preco"
                   name="txtPreco"
                   #txtPreco="ngModel"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                   style="size: 40px;">
             <div *ngIf="txtPreco.invalid || txtPreco.value == 0" class="alert alet-danger">
-              <label style="color: red;">Preco é obrigatória</label>
+              <label style="color: red;">Preço é obrigatório</label>
             </div>
           </div>
 
@@ -78,21 +78,33 @@
         <table id="tabelaDasMovmentacoes" style="cursor: pointer;" class="styled-table">
           <thead>
               <tr>
-                <th style="width: 100px;">Código</th>
-                <th style="width: 300px;">Produto</th>
-                <th style="width: 100px;">Quantidade</th>
-                <th style="width: 100px;">Tipo</th>
+                <th style="width: 100px; text-align: right;">Código</th>
+                <th style="width: 300px; text-align: left;">Produto</th>
+                <th style="width: 100px; text-align: right;">Quantidade</th>
+                <th style="width: 100px; text-align: left;">Tipo</th>
+                <th style="width: 100px; text-align: center;">Excluir</th>
               </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of listaDeMovimentacoes">
-                <td>{{item.id}}</td>
-                <td>{{item.produto}}</td>
-                <td>{{item.quantidade}}</td>
-                <td>{{tiposDeMovimentacaos[item.tipo].desc}}</td>
+                <td style="text-align: right;">{{item.id}}</td>
+                <td style="text-align: left;">{{item.produto}}</td>
+                <td style="text-align: right;">{{item.quantidade}}</td>
+                <td style="text-align: left;">{{tiposDeMovimentacaos[item.tipo].desc}}</td>
+                <td>
+                  <button type="submit"
+                          class="btn btn-danger"
+                          style="cursor: pointer;"
+                          (click)="excluirMovimentacao()">
+                    Excluir
+                  </button>
+                </td>
             </tr>
           </tbody>
         </table>
+
+        <app-saldo-estoque></app-saldo-estoque>
+
       </div>
     </div>
 </div>

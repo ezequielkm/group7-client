@@ -11,14 +11,14 @@ import { first } from 'rxjs';
 export class EstoqueComponent {
 
   estoque?: Estoque[];
-  estoqueDescricao?: string;
+  estoqueCodigoDescricao?: string;
 
   constructor(private estoqueService: EstoqueService) { }
 
   ngOnInit() {
     this.estoqueService.getAll().pipe(first()).subscribe(estoque => {
       this.estoque = estoque;
-      this.estoqueDescricao = estoque[0].descricao;
+      this.estoqueCodigoDescricao = estoque[0].id + " - " + estoque[0].descricao;
     });
   }
 }
