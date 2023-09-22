@@ -3,13 +3,20 @@
     <div class="card-body">
         <h6>Users from secure api end point</h6>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="users">
-            <li *ngFor="let user of users">{{user.username}}</li>
-        </ul>
+        <div *ngIf="users">
+            <div *ngFor="let user of users">
+                <input type="checkbox" (change)="checkUser($event, user)"> {{user.username}}
+             <div>
+        </div>
     </div>
     <button type="submit"
     class="btn btn-success"
     routerLink="users">
 Adicionar Usuário
+</button>
+<button type="submit"
+class="btn btn-success"
+(click)="deleteAccounts()">
+Remover Usuário
 </button>
 </div>

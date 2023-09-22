@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'environments/environment';
 import { User } from 'app/_models';
-
+import { Account } from 'app/_models/account';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
     create(data: any): Observable<any> {
         return this.http.post(`${environment.apiUrl}/users`, data);
       }
-    delete(id: any): Observable<any> {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`);
+    delete(data: any): Observable<any> {
+        return this.http.delete(`${environment.apiUrl}/users/${data.id}`);
       }
 }

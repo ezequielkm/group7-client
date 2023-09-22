@@ -1,14 +1,12 @@
-<div>
+<form ngNativeValidate>
     <div class="submit-form">
-      <div *ngIf="!submitted">
         <div class="form-group">
           <label for="username">Username</label>
           <input
             type="text"
             class="form-control"
             id="title"
-            required
-            [(ngModel)]="account.username"
+            [(ngModel)]="account.username" required
             name="username"
           />
         </div>
@@ -18,8 +16,7 @@
           <input
             class="form-control"
             id="password"
-            required
-            [(ngModel)]="account.password"
+            [(ngModel)]="account.password" required
             name="password"
         />
         </div>
@@ -29,18 +26,10 @@
             <input
               class="form-control"
               id="email"
-              required
-              [(ngModel)]="account.email"
+              [(ngModel)]="account.email" required
               name="email"
             />
           </div>
-  
-        <button (click)="saveAccount()" class="btn btn-success">Submit</button>
+        <button (click)="saveAccount()" class="submit">Submit</button>
       </div>
-  
-      <div *ngIf="submitted">
-        <h4>User was submitted successfully!</h4>
-        <button class="btn btn-success" (click)="newAccount()">Add</button>
-      </div>
-    </div>
-  </div>
+  </form>
