@@ -47,5 +47,6 @@ export class HomeComponent {
             error: (e) => console.error(e)
           });
         });
+        location.reload();
       }
 }
