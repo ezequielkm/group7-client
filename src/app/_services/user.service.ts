@@ -19,4 +19,5 @@ export class UserService {
     delete(data: any): Observable<any> {
         return this.http.delete(`${environment.apiUrl}/users/${data.id}`);
       }
+      
 }

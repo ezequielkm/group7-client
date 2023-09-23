@@ -12,6 +12,9 @@ import { LoginComponent } from './login';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
 import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
+import { GitAuthComponent } from './git-auth/git-auth.component';
+import { RedirectComponent } from './redirect/redirect.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
     LoginComponent,
     EstoqueComponent,
     AddAccountComponent,
-    MovimentacaoComponent
+    MovimentacaoComponent,
+    GitAuthComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
