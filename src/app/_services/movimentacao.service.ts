@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { Movimentacao } from 'app/_models/movimentacao';
 
-
 @Injectable({ providedIn: 'root' })
 export class MovimentacaoService {
     constructor(private http: HttpClient) { }
@@ -16,5 +15,10 @@ export class MovimentacaoService {
 
     create(data: any): Observable<any> {
       return this.http.post(`${environment.apiUrl}/movimentacao`, data);
+    }
+
+    delete(data: any): Observable<any> {
+      console.log("DATA_ID: " + data.id);
+      return this.http.delete(`${environment.apiUrl}/movimentacao/${data.id}`);
     }
 }

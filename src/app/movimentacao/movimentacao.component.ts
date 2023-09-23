@@ -11,6 +11,7 @@ import { first } from 'rxjs';
 export class MovimentacaoComponent {
 
   movimentacao: Movimentacao = {
+    id: 0,
     idEstoque: 1,
     tipo: 0,
     produto: '',
@@ -32,6 +33,12 @@ export class MovimentacaoComponent {
 
   ngOnInit() {
     this.buscarMovimentacoes();
+  }
+
+  buscarMovimentacoes() {
+    this.movimentacaoService.getAll().pipe(first()).subscribe(movimentacao => {
+      this.listaDeMovimentacoes = movimentacao;
+    });
   }
 
   salvarMovimentacao(){
@@ -56,15 +63,49 @@ export class MovimentacaoComponent {
     this.limparCampos();
   }
 
-  excluirMovimentacao() {
-    //
-  }
+  excluirMovimentacao(idParam?: number) {
+    console.log("ABC 1: " + idParam);
 
-  buscarMovimentacoes() {
-    this.movimentacaoService.getAll().pipe(first()).subscribe(movimentacao => {
-      this.listaDeMovimentacoes = movimentacao;
+    const data = {
+      id: idParam
+    };
+
+    console.log("ABC 2: " + data);
+    console.log("ABC 3: " + data.id);
+
+    this.movimentacaoService.delete(data).subscribe({
+      next: (res) => {
+        console.log("ABC 4 - RES: " + res);
+        console.log(res);
+      },
+      error: (e) => {
+        console.log("ABC 4 - e: " + e);
+        console.error(e);
+      }
     });
   }
+
+
+
+
+  // deleteAccounts(): void {
+  //   if (this.deleteUsers == null) {
+  //       return;
+  //   }
+  //   this.deleteUsers.forEach(account => {
+  //     const data = {
+  //       id: <Number>account.user_id
+  //     };
+  //   this.userService.delete(data)
+  //     .subscribe({
+  //       next: (res) => {
+  //         console.log(res);
+  //       },
+  //       error: (e) => console.error(e)
+  //     });
+  //   });
+  //   location.reload();
+  // }
 
   limparCampos() {
     this.movimentacao.produto = "";
