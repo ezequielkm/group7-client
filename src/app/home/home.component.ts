@@ -11,7 +11,7 @@ export class HomeComponent {
     users?: User[];
     deleteUsers: Account[];
 
-    constructor(private userService: UserService) { 
+    constructor(private userService: UserService) {
       this.deleteUsers = [];
     }
 
@@ -30,12 +30,12 @@ export class HomeComponent {
           this.deleteUsers?.splice(this.deleteUsers.indexOf(account), 1);
         }
       }
-      
-    deleteAccounts(): void {  
+
+    deleteAccounts(): void {
         if (this.deleteUsers == null) {
             return;
         }
-        this.deleteUsers.forEach(account => { 
+        this.deleteUsers.forEach(account => {
           const data = {
             id: <Number>account.user_id
           };

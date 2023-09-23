@@ -1,10 +1,19 @@
 <h4>Movimentacão de estoque</h4>
 
 <div class="container">
-  <div class="linha">
-      <div class="coluna-esquerda">
+  <!-- <div class="linha"> -->
+      <!-- <div class="coluna-esquerda"> -->
 
-        <section class="Form">
+        <button type="submit"
+                class="btn btn-success"
+                (click)="abrirMovimentacao()"
+                style="width: 250px;">
+            Movimentar estoque
+        </button>
+
+        <br>
+
+        <!-- <section class="Form">
           <div class="form-group">
             <label for produto>Produto:</label><br>
             <input type="text"
@@ -71,18 +80,19 @@
                   [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
             Adicionar
           </button>
-        </section>
-      </div>
+        </section> -->
+      <!-- </div> -->
 
-      <div class="coluna-direita">
+      <!-- <div class="coluna-direita"> -->
         <table id="tabelaDasMovmentacoes" style="cursor: pointer;" class="styled-table">
           <thead>
               <tr>
-                <th style="width: 100px; text-align: right;">Código</th>
-                <th style="width: 300px; text-align: left;">Produto</th>
+                <th style="width: 65px; text-align: right;">Código</th>
+                <th style="width: 250px; text-align: left;">Produto</th>
                 <th style="width: 100px; text-align: right;">Quantidade</th>
+                <th style="width: 100px; text-align: right;">Preço</th>
                 <th style="width: 100px; text-align: left;">Tipo</th>
-                <th style="width: 100px; text-align: center;">Excluir</th>
+                <!-- <th style="width: 100px; text-align: center;">Excluir</th> -->
               </tr>
           </thead>
           <tbody>
@@ -90,21 +100,27 @@
                 <td style="text-align: right;">{{item.id}}</td>
                 <td style="text-align: left;">{{item.produto}}</td>
                 <td style="text-align: right;">{{item.quantidade}}</td>
+                <td style="text-align: right;">{{item.preco}}</td>
                 <td style="text-align: left;">{{tiposDeMovimentacaos[item.tipo].desc}}</td>
-                <td>
+                <!-- <td>
                   <button type="submit"
                           class="btn btn-danger"
                           style="cursor: pointer;"
                           (click)="excluirMovimentacao(item.id)">
                     Excluir
                   </button>
-                </td>
+                </td> -->
             </tr>
           </tbody>
         </table>
 
-        <app-saldo-estoque></app-saldo-estoque>
+        <app-movimentar *ngIf="mostrarModalMovimentacao"
+          (enviarMostrarModalMovimentacao)="fecharMovimentacao()"
+          (novaMovimentacao)="salvarMovimentacao($event)">
+        </app-movimentar>
 
-      </div>
-    </div>
+        <!-- <app-saldo-estoque></app-saldo-estoque> -->
+
+      <!-- </div> -->
+    <!-- </div> -->
 </div>

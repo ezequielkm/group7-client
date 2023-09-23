@@ -15,6 +15,9 @@ import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
 import { GitAuthComponent } from './git-auth/git-auth.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { SaldoEstoqueComponent } from './saldo-estoque/saldo-estoque.component';
+import { MovimentarComponent } from './movimentar/movimentar.component';
+
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -26,19 +29,24 @@ import { SaldoEstoqueComponent } from './saldo-estoque/saldo-estoque.component';
     MovimentacaoComponent,
     GitAuthComponent,
     RedirectComponent,
-    SaldoEstoqueComponent
+    SaldoEstoqueComponent,
+    MovimentarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    MovimentarComponent
+  ]
 })
 export class AppModule { }
