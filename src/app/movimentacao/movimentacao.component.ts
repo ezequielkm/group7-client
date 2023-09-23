@@ -19,71 +19,57 @@ export class MovimentacaoComponent {
     data: new Date()
   };
 
-  // @Input() movimentacaoInput: Movimentacao;
-
-   listaDeMovimentacoes: Movimentacao[];
-  // tipoMovimentacao: number;
-  // produto: string;
-  // quantidade: number;
-  // preco: number;
-  // ultimoIdMovimentacao = 0;
-
-  // utlimoIdEstoqueSelecionada: number;
-  // mostrarEstoqueDeMovimentacoes: boolean;
+  listaDeMovimentacoes: Movimentacao[];
 
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
     { desc: 'Saída', val: 1},
   ]
 
-  // movimentacao?: Movimentacao[];
-
-   constructor(private movimentacaoService: MovimentacaoService) {
-  //   this.movimentacaoInput = new Movimentacao();
-
-
-  //   this.tipoMovimentacao = 0;
-  //   this.produto = "";
-  //   this.quantidade = 0;
-  //   this.preco = 0;
-
+  constructor(private movimentacaoService: MovimentacaoService) {
     this.listaDeMovimentacoes = [];
-
-  
-  //   this.utlimoIdEstoqueSelecionada = 0;
-  //   this.mostrarEstoqueDeMovimentacoes = false;
   }
 
   ngOnInit() {
+    this.buscarMovimentacoes();
+  }
+
+  salvarMovimentacao(){
+    const data = {
+      idEstoque: this.movimentacao.idEstoque,
+      tipo: this.movimentacao.tipo,
+      produto: this.movimentacao.produto,
+      quantidade: this.movimentacao.quantidade,
+      preco: this.movimentacao.preco,
+      data: Date.now()
+    };
+
+    this.movimentacaoService.create(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      });
+
+    this.buscarMovimentacoes();
+    this.limparCampos();
+  }
+
+  excluirMovimentacao() {
+    //
+  }
+
+  buscarMovimentacoes() {
     this.movimentacaoService.getAll().pipe(first()).subscribe(movimentacao => {
       this.listaDeMovimentacoes = movimentacao;
     });
   }
 
-  salvarMovimentacao(){
-      const data = {
-        idEstoque: this.movimentacao.idEstoque,
-        tipo: this.movimentacao.tipo,
-        produto: this.movimentacao.produto,
-        quantidade: this.movimentacao.quantidade,
-        preco: this.movimentacao.preco,
-        data: Date.now()
-      };
-  
-      this.movimentacaoService.create(data)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            //this.submitted = true;
-          },
-          error: (e) => console.error(e)
-        });
-    
-  }
-
-  buscarEstoqueDeMovimentacoes(idEstoque: number) {
-  }
-
   limparCampos() {
+    this.movimentacao.produto = "";
+    this.movimentacao.tipo = 0;
+    this.movimentacao.quantidade = 0;
+    this.movimentacao.preco = 0;
   }
 }

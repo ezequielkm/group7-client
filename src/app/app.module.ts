@@ -14,7 +14,7 @@ import { AddAccountComponent } from './accounts/add-account/add-account.componen
 import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
 import { GitAuthComponent } from './git-auth/git-auth.component';
 import { RedirectComponent } from './redirect/redirect.component';
-
+import { SaldoEstoqueComponent } from './saldo-estoque/saldo-estoque.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { RedirectComponent } from './redirect/redirect.component';
     AddAccountComponent,
     MovimentacaoComponent,
     GitAuthComponent,
-    RedirectComponent
+    RedirectComponent,
+    SaldoEstoqueComponent
   ],
   imports: [
     BrowserModule,
