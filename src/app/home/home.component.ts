@@ -4,23 +4,26 @@ import { first } from 'rxjs/operators';
 import { User } from 'app/_models';
 import { UserService } from 'app/_services';
 import { Account } from 'app/_models/account';
+import { AuthenticationService } from 'app/_services';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {
     loading = false;
-    users?: User[];
+    users?: Account[];
     deleteUsers: Account[];
+    currentUser: string | undefined;
 
     constructor(private userService: UserService) {
       this.deleteUsers = [];
+      this.currentUser = JSON.parse(localStorage.getItem('user')!).account.username;
     }
 
     ngOnInit() {
-        this.loading = true;
-        this.userService.getAll().pipe(first()).subscribe(users => {
-            this.loading = false;
-            this.users = users;
-        });
+      this.loading = true;
+      this.userService.getAll().pipe(first()).subscribe(users => {
+        this.loading = false;
+        this.users = users;
+      });
     }
 
     checkUser (event : any, account: Account) {
