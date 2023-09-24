@@ -20,7 +20,7 @@ export class AuthenticationService {
     }
 
     public get userValue() {
-        return this.userSubject.value;
+        return this.userSubject.getValue();
     }
 
     login(username: string, password: string) {
