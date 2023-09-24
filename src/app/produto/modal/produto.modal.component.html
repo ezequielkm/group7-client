@@ -1,0 +1,58 @@
+<ng-container *ngIf="mostrarModalCadastrarProduto">
+  <div class="modal">
+    <section class="Form">
+      <div class="form-group">
+        <label for nomeProduto>Nome:</label><br>
+        <input type="text"
+              class="form-control"
+              id="nome"
+              required
+              [(ngModel)]="produto.nome"
+              name="nomeProduto"
+              #nomeProduto="ngModel"
+              style="max-width: 450px; width: 100%;">
+        <div *ngIf="nomeProduto.invalid" class="alert alet-danger">
+          <label style="color: red;">Nome do produto é obrigatório</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for tipoProduto>Tipo:</label><br>
+        <select class="form-control"
+                id="tipoProduto"
+                required
+                [(ngModel)]="produto.tipo"
+              name="tipoProduto"
+              #tipoProduto="ngModel">
+          <option *ngFor="let item of tiposDeProdutos" [value]="item.val">{{item.desc}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for vencimentoProduto>Data de vencimento:</label><br>
+        <input type="text"
+              class="form-control"
+              id="quantidade"
+              required
+              [(ngModel)]="produto.vencimento"
+              name="vencimentoProduto"
+              #vencimentoProduto="ngModel"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              style="size: 40px;">
+        <div *ngIf="vencimentoProduto.invalid" class="alert alet-danger">
+          <label style="color: red;">Data de vencimento é obrigatória</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="salvarProduto()" 
+      [disabled]="nomeProduto.invalid || tipoProduto.invalid || vencimentoProduto.invalid">
+        Salvar
+      </button>
+
+      <button type="submit" class="btn btn-success" (click)="fecharModalCadastrarProduto()">Cancelar</button>
+    </section>
+    <ng-content></ng-content>
+  </div>
+
+  <div (click)="toggle()" class="overlay"></div>
+</ng-container>
