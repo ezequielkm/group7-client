@@ -17,8 +17,13 @@ export class MovimentacaoService {
       return this.http.post(`${environment.apiUrl}/movimentacao`, data);
     }
 
+    edit(data: any): Observable<any> {
+      console.log("DATA_ID: " + data.id);
+      return this.http.put(`${environment.apiUrl}/movimentacao/${data.id}`, data);
+    }
+
     delete(data: any): Observable<any> {
       console.log("DATA_ID: " + data.id);
-      return this.http.delete(`${environment.apiUrl}/movimentacao/${data.id}`);
+      return this.http.delete(`${environment.apiUrl}/movimentacao/${data.id}`, { responseType: 'text' });
     }
 }

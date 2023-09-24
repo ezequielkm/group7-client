@@ -6,10 +6,11 @@ import { LoginComponent } from './login';
 import { AuthGuard } from './_helpers';
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
 import { EstoqueComponent } from './estoque/estoque.component';
-import { Movimentacao } from './_models/movimentacao';
+
 import { GitAuthComponent } from './git-auth/git-auth.component';
 import { ExtUrlResolverService } from './ext-url-resolver.service';
 import { RedirectComponent } from './redirect/redirect.component';
+import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'users', component: AddAccountComponent, canActivate: [AuthGuard]},
   { path: 'users', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'estoque', component: EstoqueComponent, canActivate: [AuthGuard] },
-  { path: 'movimentacao', component: Movimentacao, canActivate: [AuthGuard]},
+  { path: 'movimentacao', component: MovimentacaoComponent, canActivate: [AuthGuard]},
   { path: 'test', component: GitAuthComponent , resolve: { ExtUrlResolverService }},
   { path: 'redirect', component: RedirectComponent},
 

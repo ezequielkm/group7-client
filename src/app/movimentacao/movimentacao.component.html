@@ -1,126 +1,50 @@
 <h4>Movimentacão de estoque</h4>
 
 <div class="container">
-  <!-- <div class="linha"> -->
-      <!-- <div class="coluna-esquerda"> -->
+  <button type="submit"
+          class="btn btn-success"
+          (click)="abrirMovimentacao()"
+          style="width: 250px;">
+      Movimentar estoque
+  </button>
 
-        <button type="submit"
-                class="btn btn-success"
-                (click)="abrirMovimentacao()"
-                style="width: 250px;">
-            Movimentar estoque
-        </button>
+  <br>
 
-        <br>
+  <table id="tabelaDasMovmentacoes" style="cursor: pointer;" class="styled-table">
+    <thead>
+        <tr>
+          <th style="width: 65px; text-align: right;">Código</th>
+          <th style="width: 250px; text-align: left;">Produto</th>
+          <th style="width: 100px; text-align: right;">Quantidade</th>
+          <th style="width: 100px; text-align: right;">Preço</th>
+          <th style="width: 55px; text-align: left;">Tipo</th>
+          <th style="width: 100px; text-align: center;">Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaDeMovimentacoes">
+          <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.id}}</td>
+          <td (click)="editarMovimentacao(item)" style="text-align: left;">{{item.produto}}</td>
+          <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.quantidade}}</td>
+          <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.preco}}</td>
+          <td (click)="editarMovimentacao(item)" style="text-align: left;">{{tiposDeMovimentacaos[item.tipo].desc}}</td>
+          <td>
+            <button type="submit"
+                    class="btn btn-danger"
+                    style="cursor: pointer;"
+                    (click)="excluirMovimentacao(item.id)">
+              Excluir
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
 
-        <!-- <section class="Form">
-          <div class="form-group">
-            <label for produto>Produto:</label><br>
-            <input type="text"
-                  class="form-control"
-                  id="produto"
-                  required
-                  [(ngModel)]="movimentacao.produto"
-                  name="txtProduto"
-                  #txtProduto="ngModel"
-                  style="max-width: 450px; width: 100%;">
-            <div *ngIf="txtProduto.invalid" class="alert alet-danger">
-              <label style="color: red;">Produto é obrigatório</label>
-            </div>
-          </div>
+  <app-movimentar
+    *ngIf="mostrarModalMovimentacao"
+    (enviarMostrarModalMovimentacao)="fecharMovimentacao()"
+    (novaMovimentacao)="salvarMovimentacao($event)"
+    [movimentacaoRecebida]="movimentacaoEnviada">
+  </app-movimentar>
 
-          <div class="form-group">
-            <label for="tipoMovimentacao">Situação:</label><br>
-            <select class="form-control"
-                    id="tipoMovimentacao"
-                    required
-                    [(ngModel)]="movimentacao.tipo"
-                  name="tipoMovimentacao"
-                  #power="ngModel">
-              <option *ngFor="let item of tiposDeMovimentacaos" [value]="item.val">{{item.desc}}</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for quantidade>Quantidade:</label><br>
-            <input type="text"
-                  class="form-control"
-                  id="quantidade"
-                  required
-                  [(ngModel)]="movimentacao.quantidade"
-                  name="txtQuantidade"
-                  #txtQuantidade="ngModel"
-                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                  style="size: 40px;">
-            <div *ngIf="txtQuantidade.invalid || txtQuantidade.value == 0" class="alert alet-danger">
-              <label style="color: red;">Quantidade é obrigatória</label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for preco>Preco:</label><br>
-            <input type="text"
-                  class="form-control"
-                  id="preco"
-                  required
-                  [(ngModel)]="movimentacao.preco"
-                  name="txtPreco"
-                  #txtPreco="ngModel"
-                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                  style="size: 40px;">
-            <div *ngIf="txtPreco.invalid || txtPreco.value == 0" class="alert alet-danger">
-              <label style="color: red;">Preço é obrigatório</label>
-            </div>
-          </div>
-
-          <br>
-          <button type="submit"
-                  class="btn btn-success"
-                  (click)="salvarMovimentacao()"
-                  [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
-            Adicionar
-          </button>
-        </section> -->
-      <!-- </div> -->
-
-      <!-- <div class="coluna-direita"> -->
-        <table id="tabelaDasMovmentacoes" style="cursor: pointer;" class="styled-table">
-          <thead>
-              <tr>
-                <th style="width: 65px; text-align: right;">Código</th>
-                <th style="width: 250px; text-align: left;">Produto</th>
-                <th style="width: 100px; text-align: right;">Quantidade</th>
-                <th style="width: 100px; text-align: right;">Preço</th>
-                <th style="width: 100px; text-align: left;">Tipo</th>
-                <!-- <th style="width: 100px; text-align: center;">Excluir</th> -->
-              </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of listaDeMovimentacoes">
-                <td style="text-align: right;">{{item.id}}</td>
-                <td style="text-align: left;">{{item.produto}}</td>
-                <td style="text-align: right;">{{item.quantidade}}</td>
-                <td style="text-align: right;">{{item.preco}}</td>
-                <td style="text-align: left;">{{tiposDeMovimentacaos[item.tipo].desc}}</td>
-                <!-- <td>
-                  <button type="submit"
-                          class="btn btn-danger"
-                          style="cursor: pointer;"
-                          (click)="excluirMovimentacao(item.id)">
-                    Excluir
-                  </button>
-                </td> -->
-            </tr>
-          </tbody>
-        </table>
-
-        <app-movimentar *ngIf="mostrarModalMovimentacao"
-          (enviarMostrarModalMovimentacao)="fecharMovimentacao()"
-          (novaMovimentacao)="salvarMovimentacao($event)">
-        </app-movimentar>
-
-        <!-- <app-saldo-estoque></app-saldo-estoque> -->
-
-      <!-- </div> -->
-    <!-- </div> -->
 </div>

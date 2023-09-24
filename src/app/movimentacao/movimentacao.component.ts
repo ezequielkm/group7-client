@@ -10,19 +10,11 @@ import { first } from 'rxjs';
 })
 export class MovimentacaoComponent {
 
-  // movimentacao: Movimentacao = {
-  //   id: 0,
-  //   idEstoque: 1,
-  //   tipo: 0,
-  //   produto: '',
-  //   quantidade: 0,
-  //   preco: 0,
-  //   data: new Date()
-  // };
-
   listaDeMovimentacoes: Movimentacao[];
 
   mostrarModalMovimentacao = false;
+
+  movimentacaoEnviada: null | Movimentacao;
 
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
@@ -31,6 +23,7 @@ export class MovimentacaoComponent {
 
   constructor(private movimentacaoService: MovimentacaoService) {
     this.listaDeMovimentacoes = [];
+    this.movimentacaoEnviada = new Movimentacao();
   }
 
   ngOnInit() {
@@ -43,45 +36,39 @@ export class MovimentacaoComponent {
     });
   }
 
-  // salvarMovimentacao(){
-  //   const data = {
-  //     idEstoque: this.movimentacao.idEstoque,
-  //     tipo: this.movimentacao.tipo,
-  //     produto: this.movimentacao.produto,
-  //     quantidade: this.movimentacao.quantidade,
-  //     preco: this.movimentacao.preco,
-  //     data: Date.now()
-  //   };
-
-  //   this.movimentacaoService.create(data).subscribe({
-  //     next: (res) => {
-  //       console.log(res);
-  //     },
-  //     error: (e) => console.error(e)
-  //   });
-
-  //   this.buscarMovimentacoes();
-  //   this.limparCampos();
-  // }
-
   salvarMovimentacao(movimentacao: Movimentacao) {
-    this.movimentacaoService.create(movimentacao).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (e) => console.error(e)
-    });
+    if (movimentacao.id) {
+      this.movimentacaoService.edit(movimentacao).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      });
+    } else {
+      this.movimentacaoService.create(movimentacao).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      });
+    }
 
     this.buscarMovimentacoes();
-    // this.limparCampos();
   }
 
   abrirMovimentacao() {
+    this.movimentacaoEnviada = null;
     this.mostrarModalMovimentacao = true;
   }
 
   fecharMovimentacao() {
+    this.movimentacaoEnviada = null;
     this.mostrarModalMovimentacao = false;
+  }
+
+  editarMovimentacao(movimentacao: Movimentacao) {
+    this.movimentacaoEnviada = movimentacao;
+    this.mostrarModalMovimentacao = true;
   }
 
   excluirMovimentacao(idParam?: number): void {
@@ -100,11 +87,4 @@ export class MovimentacaoComponent {
       }
     });
   }
-
-  // limparCampos() {
-  //   this.movimentacao.produto = "";
-  //   this.movimentacao.tipo = 0;
-  //   this.movimentacao.quantidade = 0;
-  //   this.movimentacao.preco = 0;
-  // }
 }

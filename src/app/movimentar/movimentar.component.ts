@@ -12,6 +12,8 @@ export class MovimentarComponent {
 
   @Output() novaMovimentacao = new EventEmitter<Movimentacao>();
 
+  @Input() movimentacaoRecebida: any;
+
   movimentacao: Movimentacao = {
     id: 0,
     idEstoque: 1,
@@ -29,6 +31,12 @@ export class MovimentarComponent {
 
   constructor() {
 
+  }
+
+  ngOnInit() {
+    if (this.movimentacaoRecebida) {
+      this.movimentacao = this.movimentacaoRecebida;
+    }
   }
 
   salvarMovimentacao() {

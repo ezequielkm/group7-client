@@ -62,18 +62,22 @@
 
       <br>
 
-      <button type="submit"
-              class="btn btn-success"
-              (click)="salvarMovimentacao()"
-              [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
-        Salvar
-      </button>
+      <div style="text-align: center;">
+        <button type="submit"
+                class="btn btn-success"
+                (click)="salvarMovimentacao()"
+                [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
+          Salvar
+        </button>
 
-      <button type="submit"
-              class="btn btn-success"
-              (click)="cancelarMovimentacao()">
-        Cancelar
-      </button>
+        &nbsp;&nbsp;
+
+        <button type="submit"
+                class="btn btn-danger"
+                (click)="cancelarMovimentacao()">
+          Cancelar
+        </button>
+      </div>
     </section>
 
     <ng-content></ng-content>
