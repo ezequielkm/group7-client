@@ -72,15 +72,11 @@ export class MovimentacaoComponent {
   }
 
   excluirMovimentacao(idParam?: number): void {
-    if (!confirm("Deseja excluir o registro?")) {
-      return
-    }
+    if (!confirm("Deseja excluir o registro?")) { return; }
 
-    if (!idParam) { return;}
+    if (!idParam) { return; }
 
-    const data = {
-      id: idParam
-    };
+    const data = { id: idParam };
 
     this.movimentacaoService.delete(data).subscribe({
       next: (res) => {
