@@ -1,4 +1,4 @@
-﻿<div class="card mt-4">
+﻿<div class="container">
     <h4 class="card-header py-3">You're logged in as "{{currentUser}}"</h4>
     <div class="card-body">
         <h6>Users from secure api end point</h6>
@@ -9,14 +9,12 @@
              <div>
         </div>
     </div>
-    <button type="submit"
-    class="btn btn-success"
-    routerLink="users">
-Adicionar Usuário
-</button>
-<button type="submit"
-class="btn btn-success"
-(click)="deleteAccounts()">
-Remover Usuário
-</button>
+    <div class="container">
+    <button class="buttonStyle" type="submit" routerLink="users">
+        Adicionar Usuário
+    </button>
+    <button class="buttonStyle" type="submit" (click)="deleteAccounts()">
+        Remover Usuário
+    </button>
+    </div>
 </div>
