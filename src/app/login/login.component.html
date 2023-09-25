@@ -4,7 +4,7 @@
         <div class="card-body">
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
-                    <label class="form-label">Username</label>
+                    <label class="form-label">Username: </label>
                     <input type="text" formControlName="username" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
                     <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Password</label>
+                    <label class="form-label">Password: </label>
                     <input type="password" formControlName="password" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
                     <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
@@ -20,11 +20,11 @@
                     </div>
                 </div>
                 <div>
-                    <button [disabled]="loading" style="width: 150px;" class="btn btn-primary">
+                    <button class="buttonStyle" [disabled]="loading" style="width: 150px;">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         Login
                     </button>
-                    <button type="submit" style="width: 150px;" class="btn btn-primary" (click)="login()">Login with GitHub</button>
+                    <button class="buttonStyle" type="submit" style="width: 150px;" (click)="login()">Login with GitHub</button>
                 </div>
                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
             </form>
