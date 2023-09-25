@@ -1,5 +1,5 @@
 export class Account {
-    id?: any;
+    user_id?: any;
     username?: string;
     password?: string;
     email?: string;

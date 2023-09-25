@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Account } from 'app/_models/account';
 import { UserService } from 'app/_services/user.service'
 
@@ -7,16 +8,21 @@ import { UserService } from 'app/_services/user.service'
   templateUrl: './add-account.component.html',
   styleUrls: ['./add-account.component.css']
 })
+
 export class AddAccountComponent implements OnInit {
 
+  
     account: Account = {
+      user_id: 0,
       username: '',
       password: '',
       email: ''
     };
     submitted = false;
   
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService,  private router: Router) { 
+      
+    }
   
     ngOnInit(): void {
     }
@@ -33,6 +39,7 @@ export class AddAccountComponent implements OnInit {
           next: (res) => {
             console.log(res);
             this.submitted = true;
+            this.router.navigate(['/'])
           },
           error: (e) => console.error(e)
         });

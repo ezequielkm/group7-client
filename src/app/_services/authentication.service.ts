@@ -11,7 +11,6 @@ import { User } from 'app/_models';
 export class AuthenticationService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
-
     constructor(
         private router: Router,
         private http: HttpClient
@@ -21,7 +20,7 @@ export class AuthenticationService {
     }
 
     public get userValue() {
-        return this.userSubject.value;
+        return this.userSubject.getValue();
     }
 
     login(username: string, password: string) {
@@ -33,11 +32,30 @@ export class AuthenticationService {
                 return user;
             }));
     }
+    loginGit(username: string, email: string) {
+        return this.http.post(environment.apiUrl + '/users/authenticateGit', { username, email })  .pipe(map(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+            this.userSubject.next(user);
+            return user;
+        }));
+    }
+
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
+    }
+    GetAuthPage(): Observable<string> {
+        return this.http.get<string>(environment.apiUrl + '/users/AuthPage');
+    }
+
+    getAcessToken(auth_code: string) {
+        return this.http.post(environment.apiUrl + '/users/getAccessToken', { code: auth_code });
+    }
+    getUserDetails(): Observable<any> {
+        return this.http.get<any>(environment.apiUrl + '/users/getUserDetails');
     }
 }

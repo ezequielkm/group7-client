@@ -7,7 +7,7 @@ export class Movimentacao {
   preco?: number;
   data?: Date;
 
-  constructor() { 
+  constructor() {
     this.tipo = 0;
   }
 }

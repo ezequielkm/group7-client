@@ -1,0 +1,89 @@
+<ng-container *ngIf="mostrarModalMovimentacao">
+  <div class="modal">
+    <section class="Form">
+      <div class="form-group">
+        <label for produto>Produto:</label><br>
+        <input type="text"
+              class="form-control"
+              id="produto"
+              required
+              [(ngModel)]="movimentacao.produto"
+              name="txtProduto"
+              #txtProduto="ngModel"
+              style="max-width: 450px; width: 100%;">
+        <div *ngIf="txtProduto.invalid" class="alert alet-danger">
+          <label style="color: red;">Pruduto é obrigatório</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="tipoMovimentacao">Situação:</label><br>
+        <select class="form-control"
+                id="tipoMovimentacao"
+                required
+                [(ngModel)]="movimentacao.tipo"
+              name="tipoMovimentacao"
+              #power="ngModel">
+          <option *ngFor="let item of tiposDeMovimentacaos" [value]="item.val">{{item.desc}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for quantidade>Quantidade:</label><br>
+        <input type="text"
+              class="form-control"
+              id="quantidade"
+              required
+              [(ngModel)]="movimentacao.quantidade"
+              name="txtQuantidade"
+              #txtQuantidade="ngModel"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              style="size: 40px;">
+        <div *ngIf="txtQuantidade.invalid || txtQuantidade.value == 0" class="alert alet-danger">
+          <label style="color: red;">Quantidade é obrigatória</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for preco>Preco:</label><br>
+        <input type="text"
+              class="form-control"
+              id="preco"
+              required
+              [(ngModel)]="movimentacao.preco"
+              name="txtPreco"
+              #txtPreco="ngModel"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+              style="size: 40px;">
+        <div *ngIf="txtPreco.invalid || txtPreco.value == 0" class="alert alet-danger">
+          <label style="color: red;">Preço é obrigatório</label>
+        </div>
+      </div>
+
+      <br>
+
+      <div style="text-align: center;">
+        <button type="submit"
+                class="btn btn-success"
+                (click)="salvarMovimentacao()"
+                [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
+          Salvar
+        </button>
+
+        &nbsp;&nbsp;
+
+        <button type="submit"
+                class="btn btn-danger"
+                (click)="cancelarMovimentacao()">
+          Cancelar
+        </button>
+      </div>
+    </section>
+
+    <ng-content></ng-content>
+
+  </div>
+
+  <div (click)="toggle()" class="overlay"></div>
+
+</ng-container>

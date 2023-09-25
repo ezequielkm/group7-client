@@ -5,13 +5,14 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html', styleUrls: ['./login.component.css'] })
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
     loading = false;
     submitted = false;
     error = '';
-
+    AuthUrl = '';
+    user? : string;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -25,10 +26,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.authenticationService.GetAuthPage().subscribe((data : any) => this.AuthUrl = data["authUrl"], error => console.log(error));
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
+        
     }
 
     // convenience getter for easy access to form fields
@@ -58,4 +61,9 @@ export class LoginComponent implements OnInit {
                 }
             });
     }
+    
+
+    login(){
+        this.router.navigate(['/test'],{queryParams:{url:this.AuthUrl}});
+        }
 }

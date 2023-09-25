@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { MovimentacaoService } from 'app/_services/movimentacao.service';
 import { first } from 'rxjs';
@@ -10,16 +10,11 @@ import { first } from 'rxjs';
 })
 export class MovimentacaoComponent {
 
-  movimentacao: Movimentacao = {
-    idEstoque: 1,
-    tipo: 0,
-    produto: '',
-    quantidade: 0,
-    preco: 0,
-    data: new Date()
-  };
-
   listaDeMovimentacoes: Movimentacao[];
+
+  mostrarModalMovimentacao = false;
+
+  movimentacaoEnviada: null | Movimentacao;
 
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
@@ -28,36 +23,11 @@ export class MovimentacaoComponent {
 
   constructor(private movimentacaoService: MovimentacaoService) {
     this.listaDeMovimentacoes = [];
+    this.movimentacaoEnviada = new Movimentacao();
   }
 
   ngOnInit() {
     this.buscarMovimentacoes();
-  }
-
-  salvarMovimentacao(){
-    const data = {
-      idEstoque: this.movimentacao.idEstoque,
-      tipo: this.movimentacao.tipo,
-      produto: this.movimentacao.produto,
-      quantidade: this.movimentacao.quantidade,
-      preco: this.movimentacao.preco,
-      data: Date.now()
-    };
-
-    this.movimentacaoService.create(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (e) => console.error(e)
-      });
-
-    this.buscarMovimentacoes();
-    this.limparCampos();
-  }
-
-  excluirMovimentacao() {
-    //
   }
 
   buscarMovimentacoes() {
@@ -66,10 +36,61 @@ export class MovimentacaoComponent {
     });
   }
 
-  limparCampos() {
-    this.movimentacao.produto = "";
-    this.movimentacao.tipo = 0;
-    this.movimentacao.quantidade = 0;
-    this.movimentacao.preco = 0;
+  salvarMovimentacao(movimentacao: Movimentacao) {
+    if (movimentacao.id) {
+      this.movimentacaoService.edit(movimentacao).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      });
+    } else {
+      this.movimentacaoService.create(movimentacao).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => console.error(e)
+      });
+    }
+
+    this.buscarMovimentacoes();
+  }
+
+  abrirMovimentacao() {
+    this.movimentacaoEnviada = null;
+    this.mostrarModalMovimentacao = true;
+  }
+
+  fecharMovimentacao() {
+    this.movimentacaoEnviada = null;
+    this.mostrarModalMovimentacao = false;
+  }
+
+  editarMovimentacao(movimentacao: Movimentacao) {
+    this.movimentacaoEnviada = movimentacao;
+    this.mostrarModalMovimentacao = true;
+  }
+
+  excluirMovimentacao(idParam?: number): void {
+    if (!confirm("Deseja excluir o registro?")) {
+      return
+    }
+
+    if (!idParam) { return;}
+
+    const data = {
+      id: idParam
+    };
+
+    this.movimentacaoService.delete(data).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => {
+        console.error(e);
+      }
+    });
+
+    this.buscarMovimentacoes();
   }
 }
