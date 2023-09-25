@@ -7,10 +7,9 @@ import { Produto } from 'app/_models/produto';
   styleUrls: ['./produto.modal.component.css']
 })
 export class ProdutoModalComponent {
-  @Input() mostrarModalCadastrarProduto = true;
-  @Output() salvarProduto = new EventEmitter<void>();
-
-  @Output() novaMovimentacao = new EventEmitter<Produto>();
+  @Input() mostrarModalProduto = true;
+  @Output() novoProduto = new EventEmitter<Produto>();
+  @Output() enviarMostrarModalProduto = new EventEmitter<void>();
 
   produto: Produto = {
     nome: "",
@@ -26,22 +25,22 @@ export class ProdutoModalComponent {
 
   constructor() {}
 
-  salvarMovimentacao() {
+  salvarProduto() {
     const data: Produto = {
       nome: this.produto.nome,
       tipo: this.produto.tipo,
       vencimento: this.produto.vencimento,
     };
 
-    this.novaMovimentacao.emit(this.produto);
-    this.mostrarModalCadastrarProduto.emit();
+    this.novoProduto.emit(this.produto);
+    this.enviarMostrarModalProduto.emit();
   }
 
-  cancelarMovimentacao() {
-    this.mostrarModalCadastrarProduto.emit();
+  cancelarProduto() {
+    this.enviarMostrarModalProduto.emit();
   }
 
   toggle() {
-    this.mostrarModalCadastrarProduto.emit();
+    this.enviarMostrarModalProduto.emit();
   }
 }

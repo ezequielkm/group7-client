@@ -1,4 +1,4 @@
-<ng-container *ngIf="mostrarModalCadastrarProduto">
+<ng-container *ngIf="mostrarModalProduto">
   <div class="modal">
     <section class="Form">
       <div class="form-group">
@@ -49,7 +49,7 @@
         Salvar
       </button>
 
-      <button type="submit" class="btn btn-success" (click)="fecharModalCadastrarProduto()">Cancelar</button>
+      <button type="submit" class="btn btn-success" (click)="cancelarProduto()">Cancelar</button>
     </section>
     <ng-content></ng-content>
   </div>

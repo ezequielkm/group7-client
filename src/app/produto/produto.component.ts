@@ -12,7 +12,6 @@ export class ProdutoComponent {
 
   listaDeProdutos: Produto[];
   mostrarModalCadastrarProduto = false;
-  mostrarModalEditarProduto = false;
 
   constructor(private produtoService: ProdutoService) {
     this.listaDeProdutos = [];
@@ -26,17 +25,6 @@ export class ProdutoComponent {
     this.produtoService.getAll().pipe(first()).subscribe(produto => {
       this.listaDeProdutos = produto;
     });
-  }
-
-  editarProduto(produto: Produto) {
-    this.produtoService.update(produto).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (e) => console.error(e)
-    });
-
-    this.buscarProdutos();
   }
 
   salvarProduto(produto: Produto) {
@@ -73,13 +61,5 @@ export class ProdutoComponent {
 
   fecharModalCadastrarProduto() {
     this.mostrarModalCadastrarProduto = false;
-  }
-
-  abrirModalEditarProduto() {
-    this.mostrarModalEditarProduto = true;
-  }
-
-  fecharModalEditarProduto() {
-    this.mostrarModalEditarProduto = false;
   }
 }

@@ -1,7 +1,7 @@
 <h4>Produtos</h4>
 
 <div class="container">
-        <button type="submit" class="btn btn-success" (click)="abrirCadastroProduto()" style="width: 250px;">Cadastrar Produto</button>
+        <button type="submit" class="btn btn-success" (click)="abrirModalCadastrarProduto()" style="width: 250px;">Cadastrar Produto</button>
 
         <table id="tabelaProdutos" style="cursor: pointer;" class="styled-table">
           <thead>
@@ -9,7 +9,6 @@
                 <th style="width: 65px; text-align: right;">Nome</th>
                 <th style="width: 250px; text-align: left;">Tipo</th>
                 <th style="width: 100px; text-align: right;">Data de Vencimento</th>
-                <th style="width: 100px; text-align: center;">Editar</th>
                 <th style="width: 100px; text-align: center;">Excluir</th>
               </tr>
           </thead>
@@ -19,22 +18,14 @@
                 <td style="text-align: left;">{{item.tipo}}</td>
                 <td style="text-align: right;">{{item.vencimento}}</td>
                 <td>
-                  <button type="submit" class="btn btn-danger" style="cursor: pointer;" (click)="editarProduto(item.id)">Excluir</button>
-                </td>
-                <td>
                   <button type="submit" class="btn btn-danger" style="cursor: pointer;" (click)="excluirProduto(item.id)">Excluir</button>
                 </td>
             </tr>
           </tbody>
         </table>
 
-        <app-movimentar *ngIf="mostrarModalCadastrarProduto"
+        <app-produtoModal *ngIf="mostrarModalCadastrarProduto"
           (mostrarModalCadastrarProduto)="fecharModalCadastrarProduto()"
-          (salvarProduto)="salvarProduto($event)">
-        </app-movimentar>
-
-        <app-movimentar *ngIf="mostrarModalEditarProduto"
-          (mostrarModalEditarProduto)="fecharModalEditarProduto()"
-          (editarProduto)="editarProduto($event)">
-        </app-movimentar>
+          (novoProduto)="salvarProduto($event)">
+        </app-produtoModal>
 </div>
