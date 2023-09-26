@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/_models/account';
 import { UserService } from 'app/_services/user.service'
+import { Role } from 'app/_models/role';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-add-account',
@@ -10,8 +12,10 @@ import { UserService } from 'app/_services/user.service'
 })
 
 export class AddAccountComponent implements OnInit {
+    loading = false;
+    roles?: Role[];
+    selectedRoles?: Role[];
 
-  
     account: Account = {
       user_id: 0,
       username: '',
@@ -21,17 +25,28 @@ export class AddAccountComponent implements OnInit {
     submitted = false;
   
     constructor(private userService: UserService,  private router: Router) { 
-      
+      this.selectedRoles = [];
     }
   
     ngOnInit(): void {
+      this.getRoles();
     }
+
+    getRoles() {
+      this.loading = true;
+      this.userService.getRoles().pipe(first()).subscribe(roles => {
+        this.loading = false;
+        this.roles = roles;
+      });
+    }
+
   
     saveAccount(): void {
       const data = {
         username: this.account.username,
         password: this.account.password,
-        email: this.account.email
+        email: this.account.email,
+        roles: this.selectedRoles
       };
   
       this.userService.create(data)
@@ -52,6 +67,14 @@ export class AddAccountComponent implements OnInit {
         password: '',
         email: ''
       };
+    }
+
+    checkRoles (event : any, role: Role) {
+      if (event.currentTarget.checked) {
+        this.selectedRoles?.push(role);
+      } else {
+        this.selectedRoles?.splice(this.selectedRoles.indexOf(role), 1);
+      }
     }
   
   }
