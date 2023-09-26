@@ -1,0 +1,31 @@
+<h4>Produtos</h4>
+
+<div class="container">
+        <button type="submit" class="btn btn-success" (click)="abrirModalCadastrarProduto()" style="width: 250px;">Cadastrar Produto</button>
+
+        <table id="tabelaProdutos" style="cursor: pointer;" class="styled-table">
+          <thead>
+              <tr>
+                <th style="width: 65px; text-align: right;">Nome</th>
+                <th style="width: 250px; text-align: left;">Tipo</th>
+                <th style="width: 100px; text-align: right;">Data de Vencimento</th>
+                <th style="width: 100px; text-align: center;">Excluir</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaDeProdutos">
+                <td style="text-align: right;">{{item.nome}}</td>
+                <td style="text-align: left;">{{item.tipo}}</td>
+                <td style="text-align: right;">{{item.vencimento}}</td>
+                <td>
+                  <button type="submit" class="btn btn-danger" style="cursor: pointer;" (click)="excluirProduto(item.id)">Excluir</button>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <app-produtoModal *ngIf="mostrarModalCadastrarProduto"
+          (mostrarModalCadastrarProduto)="fecharModalCadastrarProduto()"
+          (novoProduto)="salvarProduto($event)">
+        </app-produtoModal>
+</div>
