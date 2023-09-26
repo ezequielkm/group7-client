@@ -1,20 +1,29 @@
 ﻿<div class="container">
-    <h4 class="card-header py-3">You're logged in as "{{currentUser}}"</h4>
+    <h4 class="card-header py-3">Você está logado como "{{currentUser}}"</h4>
     <div class="card-body">
-        <h6>Users from secure api end point</h6>
+        <h6>Lista de usuários da aplicação. <br><br>Edição:<br> Clique com o botão direito sobre uma conta para editá-la.<br> Manter o campo Password em branco não o mudará durante a edição.<br><br>
+            Remoção:<br> Para remoção das contas, selecione as desejadas e clique no botão 'Remover...'.
+            <br><br>Obs: Você precisa de permissão de administrador para alterar usuários.</h6>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <div *ngIf="users">
             <div *ngFor="let user of users">
-                <input type="checkbox" (change)="checkUser($event, user)"> {{user.username}}
+                <div style="cursor: pointer;" (contextmenu)="onRightClick($event, user)" ><br><input type="checkbox" (change)="checkUser($event, user)"> {{user.username}} </div>
              <div>
         </div>
     </div>
     <div class="container">
-    <button class="buttonStyle" type="submit" routerLink="users">
+    <button class="buttonStyle" type="submit" (click)="createAccount()">
         Adicionar Usuário
     </button>
+    &nbsp;&nbsp;
     <button class="buttonStyle" type="submit" (click)="deleteAccounts()">
         Remover Usuário
     </button>
     </div>
+    <app-add-account
+    *ngIf="showAccount"
+    (sendShowAccount)="closeAccount()"
+    (newAccount)="saveAccount($event)"
+    [accountReceived]="accountSent">
+    </app-add-account>
 </div>
