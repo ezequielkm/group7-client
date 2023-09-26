@@ -7,6 +7,7 @@ import { Movimentacao } from 'app/_models/movimentacao';
 
 @Injectable({ providedIn: 'root' })
 export class MovimentacaoService {
+
     constructor(private http: HttpClient) { }
 
     getAll() {
@@ -18,7 +19,6 @@ export class MovimentacaoService {
     }
 
     delete(data: any): Observable<any> {
-      console.log("DATA_ID: " + data.id);
       return this.http.delete(`${environment.apiUrl}/movimentacao/${data.id}`, { responseType: 'text' });
     }
 
