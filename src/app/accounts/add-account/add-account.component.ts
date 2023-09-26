@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/_models/account';
 import { UserService } from 'app/_services/user.service'
@@ -11,10 +11,20 @@ import { first } from 'rxjs';
   styleUrls: ['./add-account.component.css']
 })
 
-export class AddAccountComponent implements OnInit {
+export class AddAccountComponent {
+
+  @Input() showAccount = true;
+  @Output() sendShowAccount = new EventEmitter<void>();
+
+  @Output() newAccount = new EventEmitter<Account>();
+
+  @Input() accountReceived: any;
+
+    roles: Role[] | any = [];
+  
     loading = false;
-    roles?: Role[];
-    selectedRoles?: Role[];
+    
+    selectedRoles?: Role[] | any;
 
     account: Account = {
       user_id: 0,
@@ -24,51 +34,60 @@ export class AddAccountComponent implements OnInit {
     };
     submitted = false;
   
-    constructor(private userService: UserService,  private router: Router) { 
+    constructor(private userService: UserService) { 
       this.selectedRoles = [];
     }
   
     ngOnInit(): void {
+      if (this.accountReceived) {
+        this.account.user_id = this.accountReceived[0].user_id;
+        this.account.username = this.accountReceived[0].username;
+        this.account.password = this.accountReceived[0].password;
+        this.account.email = this.accountReceived[0].email;
+        this.selectedRoles = this.accountReceived[0].roles;
+        this.selectedRoles?.forEach((role: any) => {delete role.accountRoles});
+        //delete this.selectedRoles['accountRoles'];
+      }
       this.getRoles();
     }
 
+    
     getRoles() {
       this.loading = true;
-      this.userService.getRoles().pipe(first()).subscribe(roles => {
+      this.userService.getRoles().subscribe(roles => {
         this.loading = false;
         this.roles = roles;
-      });
+      }).add(() => {this.roles.forEach((role:  any) => {
+        var contains = this.selectedRoles.some((elem : any) =>{
+          return JSON.stringify(role) === JSON.stringify(elem);
+        });
+        if (contains) {
+          role.select = true;
+        }
+        else
+        {
+          role.select = false;
+        }
+      })});
     }
-
   
     saveAccount(): void {
       const data = {
+        user_id: this.account.user_id,
         username: this.account.username,
         password: this.account.password,
         email: this.account.email,
         roles: this.selectedRoles
       };
-  
-      this.userService.create(data)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.submitted = true;
-            this.router.navigate(['/'])
-          },
-          error: (e) => console.error(e)
-        });
+      this.newAccount.emit(data);
+      this.sendShowAccount.emit();    
     }
-  
-    newAccount(): void {
-      this.submitted = false;
-      this.account = {
-        username: '',
-        password: '',
-        email: ''
-      };
+    cancelAccount() {
+      this.sendShowAccount.emit();
     }
-
+    toggle() {
+      this.sendShowAccount.emit();
+    }
     checkRoles (event : any, role: Role) {
       if (event.currentTarget.checked) {
         this.selectedRoles?.push(role);
@@ -76,6 +95,5 @@ export class AddAccountComponent implements OnInit {
         this.selectedRoles?.splice(this.selectedRoles.indexOf(role), 1);
       }
     }
-  
   }
 
