@@ -51,9 +51,9 @@ export class MovimentacaoComponent {
         },
         error: (e) => console.error(e)
       });
-    }
 
-    this.buscarMovimentacoes();
+      this.buscarMovimentacoes();
+    }
   }
 
   abrirMovimentacao() {
