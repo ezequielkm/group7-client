@@ -17,6 +17,10 @@ export class HomeComponent {
     }
 
     ngOnInit() {
+     this.getUsers();
+    }
+
+    getUsers(){
       this.loading = true;
       this.userService.getAll().pipe(first()).subscribe(users => {
         this.loading = false;
@@ -33,21 +37,25 @@ export class HomeComponent {
       }
 
     deleteAccounts(): void {
-        if (this.deleteUsers == null) {
+        if (this.deleteUsers == null || !confirm("Deseja excluir os usuários selecionados?")) {
             return;
         }
         this.deleteUsers.forEach(account => {
-          const data = {
-            id: <Number>account.user_id
-          };
-        this.userService.delete(data)
-          .subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-            error: (e) => console.error(e)
-          });
+          this.deleteAccount(<number>account.user_id);
         });
-        location.reload();
-      }
+        
+    }
+    deleteAccount(idParam? : number): void {
+      const data = {
+        id: idParam
+      };
+      this.userService.delete(data).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      }).add(() => {this.getUsers();});
+    }
 }
