@@ -1,12 +1,10 @@
 ﻿import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from 'app/_models';
 import { UserService } from 'app/_services';
 import { Account } from 'app/_models/account';
-import { AuthenticationService } from 'app/_services';
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({ templateUrl: 'home.component.html', styleUrls: ['./home.component.css'] })
 export class HomeComponent {
     loading = false;
     users?: Account[];
@@ -19,6 +17,10 @@ export class HomeComponent {
     }
 
     ngOnInit() {
+     this.getUsers();
+    }
+
+    getUsers(){
       this.loading = true;
       this.userService.getAll().pipe(first()).subscribe(users => {
         this.loading = false;
@@ -35,21 +37,25 @@ export class HomeComponent {
       }
 
     deleteAccounts(): void {
-        if (this.deleteUsers == null) {
+        if (this.deleteUsers == null || !confirm("Deseja excluir os usuários selecionados?")) {
             return;
         }
         this.deleteUsers.forEach(account => {
-          const data = {
-            id: <Number>account.user_id
-          };
-        this.userService.delete(data)
-          .subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-            error: (e) => console.error(e)
-          });
+          this.deleteAccount(<number>account.user_id);
         });
-        location.reload();
-      }
+        
+    }
+    deleteAccount(idParam? : number): void {
+      const data = {
+        id: idParam
+      };
+      this.userService.delete(data).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      }).add(() => {this.getUsers();});
+    }
 }

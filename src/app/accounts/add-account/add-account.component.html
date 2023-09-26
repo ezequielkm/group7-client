@@ -1,7 +1,7 @@
 <form ngNativeValidate>
     <div class="submit-form">
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="username">Username: </label>
           <input
             type="text"
             class="form-control"
@@ -12,7 +12,7 @@
         </div>
   
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Password: </label>
           <input
             class="form-control"
             id="password"
@@ -22,13 +22,19 @@
         </div>
 
         <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email: </label>
             <input
               class="form-control"
               id="email"
               [(ngModel)]="account.email" required
               name="email"
             />
+          </div>
+          <div class="form-group" *ngIf="roles">
+            <label for="roles">Roles: </label>
+              <div *ngFor="let role of roles">
+                  <input type="checkbox" (change)="checkRoles($event, role)"> {{role.role_name}}
+              </div>
           </div>
         <button (click)="saveAccount()" class="submit">Submit</button>
       </div>

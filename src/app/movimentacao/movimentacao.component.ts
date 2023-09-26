@@ -72,11 +72,11 @@ export class MovimentacaoComponent {
   }
 
   excluirMovimentacao(idParam?: number): void {
-    if (!idParam) { return;}
+    if (!confirm("Deseja excluir o registro?")) { return; }
 
-    const data = {
-      id: idParam
-    };
+    if (!idParam) { return; }
+
+    const data = { id: idParam };
 
     this.movimentacaoService.delete(data).subscribe({
       next: (res) => {
@@ -86,5 +86,7 @@ export class MovimentacaoComponent {
         console.error(e);
       }
     });
+
+    this.buscarMovimentacoes();
   }
 }
