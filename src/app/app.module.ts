@@ -16,6 +16,8 @@ import { GitAuthComponent } from './git-auth/git-auth.component';
 import { RedirectComponent } from './redirect/redirect.component';
 import { SaldoEstoqueComponent } from './saldo-estoque/saldo-estoque.component';
 import { MovimentarComponent } from './movimentar/movimentar.component';
+import { ProdutoComponent } from './produto/produto.component';
+import { ProdutoModalComponent } from './produto/modal/produto.modal.component';
 
 import { CommonModule } from '@angular/common';
 
@@ -30,7 +32,9 @@ import { CommonModule } from '@angular/common';
     GitAuthComponent,
     RedirectComponent,
     SaldoEstoqueComponent,
-    MovimentarComponent
+    MovimentarComponent,
+    ProdutoComponent,
+    ProdutoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,8 @@ import { CommonModule } from '@angular/common';
   ],
   bootstrap: [AppComponent],
   exports: [
-    MovimentarComponent
+    MovimentarComponent,
+    ProdutoModalComponent
   ]
 })
 export class AppModule { }
