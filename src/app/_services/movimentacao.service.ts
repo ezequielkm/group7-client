@@ -24,6 +24,6 @@ export class MovimentacaoService {
 
     edit(data: any): Observable<any> {
       console.log("DATA_ID: " + data.id);
-      return this.http.put(`${environment.apiUrl}/movimentacao/${data.id}'}`, data);
+      return this.http.put(`${environment.apiUrl}/movimentacao/${data.id}`, data);
     }
 }

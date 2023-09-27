@@ -18,6 +18,7 @@
           <th style="width: 100px; text-align: right;">Quantidade</th>
           <th style="width: 100px; text-align: right;">Preço</th>
           <th style="width: 55px; text-align: left;">Tipo</th>
+          <th style="width: 55px; text-align: left;">Data</th>
           <th style="width: 100px; text-align: center;">Excluir</th>
         </tr>
     </thead>
@@ -28,6 +29,7 @@
           <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.quantidade}}</td>
           <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.preco}}</td>
           <td (click)="editarMovimentacao(item)" style="text-align: left;">{{tiposDeMovimentacaos[item.tipo].desc}}</td>
+          <td (click)="editarMovimentacao(item)" style="text-align: right;">{{item.data}}</td>
           <td>
             <button type="submit"
                     class="btn btn-danger"
