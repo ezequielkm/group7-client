@@ -1,6 +1,17 @@
 <ng-container *ngIf="mostrarModalMovimentacao">
   <div class="modal">
     <section class="Form">
+      <div style="text-align: center;">
+        <button type="submit"
+                class="btn btn-success"
+                (click)="abrirProduto()"
+                style="width: 250px;">
+            Selecionar produto
+        </button>
+      </div>
+
+      <br>
+
       <div class="form-group">
         <label for produto>Produto:</label><br>
         <input type="text"
@@ -79,11 +90,20 @@
         </button>
       </div>
     </section>
-
     <ng-content></ng-content>
-
   </div>
+  <!-- <div (click)="toggle()" class="overlay"></div> -->
+</ng-container>
 
-  <div (click)="toggle()" class="overlay"></div>
-
+<ng-container *ngIf="mostrarModalProduto">
+  <div class="modal">
+    <section class="Form">
+      <app-modal-produtos
+        *ngIf="mostrarModalProduto"
+        (enviarMostrarModalProduto)="fecharProduto()"
+        (novoProduto)="receberProduto($event)"
+        [produtoRecebido]="produtoEnviado">
+      </app-modal-produtos>
+    </section>
+  </div>
 </ng-container>

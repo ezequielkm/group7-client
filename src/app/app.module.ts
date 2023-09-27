@@ -20,6 +20,7 @@ import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoModalComponent } from './produto/modal/produto.modal.component';
 
 import { CommonModule } from '@angular/common';
+import { ModalProdutosComponent } from './modal-produtos/modal-produtos.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CommonModule } from '@angular/common';
     SaldoEstoqueComponent,
     MovimentarComponent,
     ProdutoComponent,
-    ProdutoModalComponent
+    ProdutoModalComponent,
+    ModalProdutosComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class ProdutoComponent {
 
   listaDeProdutos: Produto[];
   mostrarModalCadastrarProduto = false;
+  @Input() produtoRecebido: any;
 
   constructor(private produtoService: ProdutoService) {
     this.listaDeProdutos = [];

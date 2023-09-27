@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
+import { Produto } from 'app/_models/produto';
 
 @Component({
   selector: 'app-movimentar',
@@ -14,6 +15,10 @@ export class MovimentarComponent {
 
   @Input() movimentacaoRecebida: any;
 
+  produtoEnviado: null | Produto;
+
+  mostrarModalProduto = false;
+
   movimentacao: Movimentacao = {
     id: 0,
     idEstoque: 1,
@@ -24,13 +29,20 @@ export class MovimentarComponent {
     data: new Date()
   };
 
+  produto: Produto = {
+    id: 0,
+    tipo: "",
+    nome: "",
+    vencimento: new Date()
+  };
+
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
     { desc: 'Saída', val: 1},
   ]
 
   constructor() {
-
+    this.produtoEnviado = new Produto();
   }
 
   ngOnInit() {
@@ -40,14 +52,6 @@ export class MovimentarComponent {
   }
 
   salvarMovimentacao() {
-    const data: Movimentacao = {
-      idEstoque: this.movimentacao.idEstoque,
-      tipo: this.movimentacao.tipo,
-      produto: this.movimentacao.produto,
-      quantidade: this.movimentacao.quantidade,
-      preco: this.movimentacao.preco
-    };
-
     this.novaMovimentacao.emit(this.movimentacao);
     this.enviarMostrarModalMovimentacao.emit();
   }
@@ -56,7 +60,23 @@ export class MovimentarComponent {
     this.enviarMostrarModalMovimentacao.emit();
   }
 
-  toggle() {
-    this.enviarMostrarModalMovimentacao.emit();
+  // toggle() {
+  //   this.enviarMostrarModalMovimentacao.emit();
+  // }
+
+  abrirProduto() {
+    this.produtoEnviado = null;
+    this.mostrarModalProduto = true;
+  }
+
+  fecharProduto() {
+    this.produtoEnviado = null;
+    this.mostrarModalProduto = false;
+  }
+
+  receberProduto(produto: Produto) {
+    alert(produto.nome);
+    this.produto = produto;
+    this.movimentacao.produto = produto.nome;
   }
 }

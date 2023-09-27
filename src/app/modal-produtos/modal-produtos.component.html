@@ -1,0 +1,42 @@
+<ng-container *ngIf="mostrarModalProduto">
+  <div class="modal">
+    <section class="Form">
+      <h4>Selecione um produto</h4>
+
+      <table id="tabelaProdutos" style="cursor: pointer;" class="styled-table">
+        <thead>
+            <tr>
+              <th style="width: 250px; text-align: left;">Nome</th>
+              <th style="width: 80px; text-align: left;">Tipo</th>
+              <th style="width: 80px; text-align: right;">Vencimento</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaDeProdutos">
+              <td (click)="salvarProduto(item)" style="text-align: left;">{{item.nome}}</td>
+              <td (click)="salvarProduto(item)" style="text-align: left;">{{item.tipo}}</td>
+              <td (click)="salvarProduto(item)" style="text-align: right;">{{item.vencimento}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <!-- <button type="submit"
+                class="btn btn-success"
+                (click)="salvarProduto()"
+                [disabled]="">
+          Ok
+        </button>
+
+        &nbsp;&nbsp; -->
+
+        <button type="submit"
+                class="btn btn-danger"
+                (click)="cancelarProduto()">
+          Cancelar
+        </button>
+      </div>
+
+    </section>
+  </div>
+</ng-container>
