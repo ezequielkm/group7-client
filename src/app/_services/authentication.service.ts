@@ -41,12 +41,12 @@ export class AuthenticationService {
         }));
     }
 
-
     logout() {
+        this.http.post(environment.apiUrl + '/users/logout', {}).subscribe();
         // remove user from local storage to log user out
         localStorage.removeItem('user');
         this.userSubject.next(null);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']);        
     }
     GetAuthPage(): Observable<string> {
         return this.http.get<string>(environment.apiUrl + '/users/AuthPage');
