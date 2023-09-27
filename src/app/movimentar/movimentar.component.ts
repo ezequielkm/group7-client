@@ -75,7 +75,6 @@ export class MovimentarComponent {
   }
 
   receberProduto(produto: Produto) {
-    alert(produto.nome);
     this.produto = produto;
     this.movimentacao.produto = produto.nome;
   }

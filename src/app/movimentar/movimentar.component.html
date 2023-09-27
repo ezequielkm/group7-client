@@ -21,7 +21,8 @@
               [(ngModel)]="movimentacao.produto"
               name="txtProduto"
               #txtProduto="ngModel"
-              style="max-width: 450px; width: 100%;">
+              readonly="true"
+              style="max-width: 450px; width: 100%; background-color: #cccccc;">
         <div *ngIf="txtProduto.invalid" class="alert alet-danger">
           <label style="color: red;">Pruduto é obrigatório</label>
         </div>
