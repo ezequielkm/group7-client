@@ -20,7 +20,7 @@ export class ProdutoModalComponent {
   tiposDeProdutos = [
     { desc: 'Kit', val: 'kit'},
     { desc: 'Carnes', val: 'carne'},
-    { desc: 'Acessórios', val: 'acessorio'},
+    { desc: 'Acessórios', val: 'acessório'},
   ]
 
   constructor() {}
