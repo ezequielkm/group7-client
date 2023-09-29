@@ -11,10 +11,12 @@ import { first } from 'rxjs';
 export class ProdutoComponent {
 
   listaDeProdutos: Produto[];
+  produtoEnviado: null | Produto;
   mostrarModalCadastrarProduto = false;
 
   constructor(private produtoService: ProdutoService) {
     this.listaDeProdutos = [];
+    this.produtoEnviado = new Produto();
   }
 
   ngOnInit() {
@@ -38,6 +40,11 @@ export class ProdutoComponent {
     this.buscarProdutos();
   }
 
+  editarMovimentacao(produto: Produto) {
+    this.produtoEnviado = produto;
+    this.mostrarModalCadastrarProduto = true;
+  }
+
   excluirProduto(idParam?: number): void {
     if (!confirm("Deseja excluir o registro?")) { return; }
 
@@ -58,10 +65,12 @@ export class ProdutoComponent {
   }
 
   abrirModalCadastrarProduto() {
+    this.produtoEnviado = null;
     this.mostrarModalCadastrarProduto = true;
   }
 
   fecharModalCadastrarProduto() {
+    this.produtoEnviado = null;
     this.mostrarModalCadastrarProduto = false;
   }
 }

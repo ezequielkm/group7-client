@@ -10,6 +10,7 @@ export class ProdutoModalComponent {
   @Input() mostrarModalProduto = true;
   @Output() enviarMostrarModalProduto = new EventEmitter<void>();
   @Output() novoProduto = new EventEmitter<Produto>();
+  @Input() produtoRecebido: any;
 
   produto: Produto = {
     nome: "",
@@ -24,6 +25,12 @@ export class ProdutoModalComponent {
   ]
 
   constructor() {}
+  
+  ngOnInit() {
+    if (this.produtoRecebido) {
+      this.produto = this.produtoRecebido;
+    }
+  }
 
   salvarProduto() {
     const data: Produto = {

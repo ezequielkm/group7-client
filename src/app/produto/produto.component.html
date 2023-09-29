@@ -26,6 +26,7 @@
 
         <app-produtoModal *ngIf="mostrarModalCadastrarProduto"
           (enviarMostrarModalProduto)="fecharModalCadastrarProduto()"
-          (novoProduto)="salvarProduto($event)">
+          (novoProduto)="salvarProduto($event)"
+          [produtoRecebido]="produtoEnviado">
         </app-produtoModal>
 </div>
