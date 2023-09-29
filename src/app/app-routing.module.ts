@@ -15,7 +15,6 @@ import { ProdutoComponent } from './produto/produto.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: AddAccountComponent, canActivate: [AuthGuard]},
   { path: 'users', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'estoque', component: EstoqueComponent, canActivate: [AuthGuard] },
   { path: 'movimentacao', component: Movimentacao, canActivate: [AuthGuard]},
