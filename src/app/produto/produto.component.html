@@ -25,7 +25,7 @@
         </table>
 
         <app-produtoModal *ngIf="mostrarModalCadastrarProduto"
-          (mostrarModalCadastrarProduto)="fecharModalCadastrarProduto()"
+          (enviarMostrarModalProduto)="fecharModalCadastrarProduto()"
           (novoProduto)="salvarProduto($event)">
         </app-produtoModal>
 </div>

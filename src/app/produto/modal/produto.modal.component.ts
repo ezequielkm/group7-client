@@ -8,8 +8,8 @@ import { Produto } from 'app/_models/produto';
 })
 export class ProdutoModalComponent {
   @Input() mostrarModalProduto = true;
-  @Output() novoProduto = new EventEmitter<Produto>();
   @Output() enviarMostrarModalProduto = new EventEmitter<void>();
+  @Output() novoProduto = new EventEmitter<Produto>();
 
   produto: Produto = {
     nome: "",
@@ -37,10 +37,6 @@ export class ProdutoModalComponent {
   }
 
   cancelarProduto() {
-    this.enviarMostrarModalProduto.emit();
-  }
-
-  toggle() {
     this.enviarMostrarModalProduto.emit();
   }
 }

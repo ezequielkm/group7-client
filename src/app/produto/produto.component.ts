@@ -12,7 +12,6 @@ export class ProdutoComponent {
 
   listaDeProdutos: Produto[];
   mostrarModalCadastrarProduto = false;
-  @Input() produtoRecebido: any;
 
   constructor(private produtoService: ProdutoService) {
     this.listaDeProdutos = [];
@@ -40,11 +39,11 @@ export class ProdutoComponent {
   }
 
   excluirProduto(idParam?: number): void {
+    if (!confirm("Deseja excluir o registro?")) { return; }
+
     if (!idParam) { return;}
 
-    const data = {
-      id: idParam
-    };
+    const data = { id: idParam };
 
     this.produtoService.delete(data).subscribe({
       next: (res) => {
@@ -54,6 +53,8 @@ export class ProdutoComponent {
         console.error(e);
       }
     });
+
+    this.buscarProdutos();
   }
 
   abrirModalCadastrarProduto() {
