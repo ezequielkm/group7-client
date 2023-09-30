@@ -21,11 +21,14 @@
           <input type="checkbox" [checked]="role.select" (change)="checkRoles($event, role)"> {{role.role_name}}
         </div>
       </div>
-      <button (click)="saveAccount()" type="submit">Enviar</button>
-      &nbsp;&nbsp;
-      <button type="submit" class="btn btn-danger" (click)="cancelAccount()">
-        Cancelar
-      </button>
+      <br>
+      <div style="text-align: center;">
+        <button (click)="saveAccount()" type="submit">Enviar</button>
+        &nbsp;&nbsp;
+        <button type="submit" class="btn btn-danger" (click)="cancelAccount()">
+          Cancelar
+        </button>
+      </div>
     </section>
   </div>
   <div (click)="toggle()" class="overlay"></div>
