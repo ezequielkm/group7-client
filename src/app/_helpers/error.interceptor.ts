@@ -15,6 +15,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
                 this.authenticationService.logout();
             }
+            if ([403].includes(err.status)) {
+                // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
+                alert("Você não tem permissão para executar esta ação, solicite ao administrador do sistema.")
+            }
+            if ([0].includes(err.status)) {
+                alert("Não foi possível conectar ao servidor, tente novamente mais tarde.")
+            }
+            if ([400].includes(err.status)) {
+                alert(err.error.message);
+            }
 
             const error = err.error.message || err.statusText;
             return throwError(error);
