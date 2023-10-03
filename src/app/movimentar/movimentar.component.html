@@ -1,7 +1,7 @@
 <ng-container *ngIf="mostrarModalMovimentacao">
   <div class="modal">
     <section class="Form">
-      <div style="text-align: center;">
+      <div style="text-align: center; margin-bottom: 20px;">
         <button type="submit"
                 class="btn btn-success"
                 (click)="abrirProduto()"
@@ -10,23 +10,24 @@
         </button>
       </div>
 
-      <br>
+      <div class="form-group" *ngIf="produto.nome" style="margin-bottom: 15px;">
+        <label><b>Produto:    </b>{{produto.nome}}</label><br><br>
+        <label><b>Tipo:       </b>{{produto.tipo}}</label><br><br>
+        <label><b>Vencimento: </b>{{produto.vencimento}}</label><br>
+      </div>
 
-      <div class="form-group">
-        <label for produto>Produto:</label><br>
+      <!-- <div class="form-group" *ngIf="movimentacao.idProduto">
+        <label for="idProduto">Produto:</label><br>
         <input type="text"
               class="form-control"
-              id="produto"
+              id="idProduto"
               required
-              [(ngModel)]="movimentacao.produto"
-              name="txtProduto"
-              #txtProduto="ngModel"
+              [(ngModel)]="movimentacao.idProduto"
+              name="txtIdProduto"
+              #txtQuantidade="ngModel"
               readonly="true"
-              style="max-width: 450px; width: 100%; background-color: #cccccc;">
-        <div *ngIf="txtProduto.invalid" class="alert alet-danger">
-          <label style="color: red;">Pruduto é obrigatório</label>
-        </div>
-      </div>
+              style="size: 40px; background-color: #cccccc;">
+      </div> -->
 
       <div class="form-group">
         <label for="tipoMovimentacao">Situação:</label><br>
@@ -78,7 +79,7 @@
         <button type="submit"
                 class="btn btn-success"
                 (click)="salvarMovimentacao()"
-                [disabled]="txtProduto.invalid || txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
+                [disabled]="txtQuantidade.invalid || txtQuantidade.value == 0 || txtPreco.invalid || txtPreco.value == 0">
           Salvar
         </button>
 
@@ -93,7 +94,6 @@
     </section>
     <ng-content></ng-content>
   </div>
-  <!-- <div (click)="toggle()" class="overlay"></div> -->
 </ng-container>
 
 <ng-container *ngIf="mostrarModalProduto">

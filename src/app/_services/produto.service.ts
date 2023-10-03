@@ -22,7 +22,11 @@ export class ProdutoService {
     }
 
     delete(data: any): Observable<any> {
-      console.log("DATA_ID: " + data.id);
       return this.http.delete(`${environment.apiUrl}/produto/${data.id}`);
+    }
+
+    getProduto(data: any): Observable<any> {
+      console.log("AAAAA 1: " + data.id);
+      return this.http.get<Produto>(`${environment.apiUrl}/produto/produto/${data.id}`);
     }
 }

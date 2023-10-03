@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { MovimentacaoService } from 'app/_services/movimentacao.service';
 import { first } from 'rxjs';
@@ -15,6 +15,7 @@ export class MovimentacaoComponent {
   mostrarModalMovimentacao = false;
 
   movimentacaoEnviada: null | Movimentacao;
+  produtoEnviado: undefined | number;
 
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
@@ -24,6 +25,7 @@ export class MovimentacaoComponent {
   constructor(private movimentacaoService: MovimentacaoService) {
     this.listaDeMovimentacoes = [];
     this.movimentacaoEnviada = new Movimentacao();
+    this.produtoEnviado = 1
   }
 
   ngOnInit() {
@@ -59,16 +61,19 @@ export class MovimentacaoComponent {
   abrirMovimentacao() {
     this.movimentacaoEnviada = null;
     this.mostrarModalMovimentacao = true;
+    this.produtoEnviado = 0;
   }
 
   fecharMovimentacao() {
     this.movimentacaoEnviada = null;
     this.mostrarModalMovimentacao = false;
+    this.produtoEnviado = 0;
   }
 
   editarMovimentacao(movimentacao: Movimentacao) {
     this.movimentacaoEnviada = movimentacao;
     this.mostrarModalMovimentacao = true;
+    this.produtoEnviado = movimentacao.idProduto;
   }
 
   excluirMovimentacao(idParam?: number): void {

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { Produto } from 'app/_models/produto';
+import { ProdutoService } from 'app/_services/produto.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-movimentar',
@@ -15,15 +17,19 @@ export class MovimentarComponent {
 
   @Input() movimentacaoRecebida: any;
 
+  @Input() produtoRecebido: any;
+
   produtoEnviado: null | Produto;
 
   mostrarModalProduto = false;
 
+  listaDeProdutos: Produto[];
+
   movimentacao: Movimentacao = {
     id: 0,
     idEstoque: 1,
+    idProduto: 0,
     tipo: 0,
-    produto: '',
     quantidade: 0,
     preco: 0,
     data: new Date()
@@ -41,17 +47,43 @@ export class MovimentarComponent {
     { desc: 'Saída', val: 1},
   ]
 
-  constructor() {
+  constructor(private produtoService: ProdutoService) {
     this.produtoEnviado = new Produto();
+    this.listaDeProdutos = [];
   }
 
   ngOnInit() {
     if (this.movimentacaoRecebida) {
       this.movimentacao = this.movimentacaoRecebida;
     }
+
+    if (this.produtoRecebido) {
+      this.getProduto(this.produtoRecebido);
+    }
+  }
+
+  getProduto(idProduto: number) {
+    const data = {
+      id: idProduto
+    };
+
+    this.produtoService.getProduto(data).subscribe({
+      next: (produto) => this.editProduto(produto),
+      error: (e) => {console.error(e), alert(e);}
+    });
+  }
+
+  editProduto(data: Produto[]) {
+    this.produto = data[0];
   }
 
   salvarMovimentacao() {
+    this.movimentacao.idEstoque = 1;
+
+    if (!this.movimentacao.idProduto) {
+      this.movimentacao.idProduto = this.produto.id;
+    }
+
     this.novaMovimentacao.emit(this.movimentacao);
     this.enviarMostrarModalMovimentacao.emit();
   }
@@ -59,10 +91,6 @@ export class MovimentarComponent {
   cancelarMovimentacao() {
     this.enviarMostrarModalMovimentacao.emit();
   }
-
-  // toggle() {
-  //   this.enviarMostrarModalMovimentacao.emit();
-  // }
 
   abrirProduto() {
     this.produtoEnviado = null;
@@ -76,6 +104,6 @@ export class MovimentarComponent {
 
   receberProduto(produto: Produto) {
     this.produto = produto;
-    this.movimentacao.produto = produto.nome;
+    this.movimentacao.idProduto = produto.id;
   }
 }
