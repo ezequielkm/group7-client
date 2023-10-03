@@ -1,13 +1,24 @@
-﻿<div class="container">
+﻿<div class="container" style="text-align: center;">
     <h4 class="card-header py-3">Você está logado como "{{currentUser}}"</h4>
-    <div class="card-body">
-        <h6>Lista de usuários da aplicação. <br><br>Edição:<br> Clique com o botão direito sobre uma conta para editá-la.<br> Manter o campo Password em branco não o mudará durante a edição.<br><br>
+    <div >
+        <h6 style="display: flex; justify-content: center;text-align: left;">Lista de usuários da aplicação. <br><br>Edição:<br> Clique com o botão direito sobre uma conta para editá-la.<br> Manter o campo Password em branco não o mudará durante a edição.<br><br>
             Remoção:<br> Para remoção das contas, selecione as desejadas e clique no botão 'Remover...'.
             <br><br>Obs: Você precisa de permissão de administrador para alterar usuários.</h6>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <div *ngIf="users">
-            <div *ngFor="let user of users">
-                <div style="cursor: pointer;" (contextmenu)="onRightClick($event, user)" ><br><input type="checkbox" (change)="checkUser($event, user)"> {{user.username}} </div>
+        <div *ngIf="users" >
+            <div  >
+                <div style="display: flex; justify-content: center;"  >
+                  <table style="text-align: left;">
+                    <tr *ngFor="let user of users" style="cursor: pointer;" (contextmenu)="onRightClick($event, user)">
+                        <td>
+                            <input type="checkbox" (change)="checkUser($event, user)">
+                        </td>
+                        <td>
+                            {{user.username}}
+                        </td>
+                    </tr>                                 
+                </table>
+                </div>
              <div>
         </div>
     </div>

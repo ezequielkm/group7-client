@@ -64,7 +64,6 @@ export class HomeComponent {
         },
         error: (e) => {
           console.error(e);
-          alert(e);
         }
       }).add(() => {this.getUsers();});
     }
@@ -75,7 +74,7 @@ export class HomeComponent {
       };
       this.userService.getUser(data).subscribe({
         next: (user) => this.editAccount(user),
-        error: (e) => {console.error(e), alert(e);}
+        error: (e) => {console.error(e);}
       });      
      }
 
@@ -85,7 +84,7 @@ export class HomeComponent {
           next: (res) => {
             console.log(res);
           },
-          error: (e) => {console.error(e), alert(e);}
+          error: (e) => {console.error(e);}
         }).add(this.getUsers());
       }
       else {
@@ -94,7 +93,7 @@ export class HomeComponent {
           next: (res) => {
             console.log(res);
           },
-          error: (e) => {console.error(e), alert(e);}
+          error: (e) => {console.error(e);}
         }).add(this.getUsers());
       }
     }
