@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             if ([0].includes(err.status)) {
                 alert("Não foi possível conectar ao servidor, tente novamente mais tarde.")
             }
-            if ([400].includes(err.status)) {
+            if ([400, 500].includes(err.status)) {
                 alert(err.error.message);
             }
 
