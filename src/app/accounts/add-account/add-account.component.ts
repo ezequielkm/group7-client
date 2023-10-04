@@ -21,9 +21,9 @@ export class AddAccountComponent {
   @Input() accountReceived: any;
 
     roles: Role[] | any = [];
-  
+
     loading = false;
-    
+
     selectedRoles?: Role[] | any;
 
     account: Account = {
@@ -33,11 +33,11 @@ export class AddAccountComponent {
       email: ''
     };
     submitted = false;
-  
-    constructor(private userService: UserService) { 
+
+    constructor(private userService: UserService) {
       this.selectedRoles = [];
     }
-  
+
     ngOnInit(): void {
       if (this.accountReceived) {
         this.account.user_id = this.accountReceived[0].user_id;
@@ -51,7 +51,7 @@ export class AddAccountComponent {
       this.getRoles();
     }
 
-    
+
     getRoles() {
       this.loading = true;
       this.userService.getRoles().subscribe(roles => {
@@ -70,7 +70,7 @@ export class AddAccountComponent {
         }
       })});
     }
-  
+
     saveAccount(): void {
       const data = {
         user_id: this.account.user_id,
@@ -80,7 +80,7 @@ export class AddAccountComponent {
         roles: this.selectedRoles
       };
       this.newAccount.emit(data);
-      this.sendShowAccount.emit();    
+      this.sendShowAccount.emit();
     }
     cancelAccount() {
       this.sendShowAccount.emit();

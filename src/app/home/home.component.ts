@@ -32,7 +32,7 @@ export class HomeComponent {
       });
     }
 
-   
+
 
     checkUser (event : any, account: Account) {
         if (event.currentTarget.checked) {
@@ -49,7 +49,7 @@ export class HomeComponent {
         this.deleteUsers.forEach(account => {
           this.deleteAccount(<number>account.user_id);
         });
-        
+
     }
     deleteAccount(idParam? : number): void {
       const data = {
@@ -102,12 +102,12 @@ export class HomeComponent {
       this.accountSent = null;
       this.showAccount = true;
     }
-  
+
     closeAccount() {
       this.accountSent = null;
       this.showAccount = false;
     }
-  
+
     editAccount(data:any) {
       this.accountSent = data;
       this.showAccount = true;
