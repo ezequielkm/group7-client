@@ -1,6 +1,5 @@
-<h4>Movimentacão de estoque</h4>
-
-<div class="container">
+<div class="container" style="text-align: center;" >
+  <h4>Movimentacão de estoque</h4>
   <button type="submit"
           class="btn btn-success"
           (click)="abrirMovimentacao()"
@@ -9,8 +8,8 @@
   </button>
 
   <br>
-
-  <table id="tabelaDasMovmentacoes" style="cursor: pointer;" class="styled-table">
+  <div style="display: flex; justify-content: center;">
+  <table id="tabelaDasMovmentacoes" style="cursor: pointer; " class="styled-table">
     <thead>
         <tr>
           <th style="width: 65px; text-align: right;">Código</th>
@@ -41,7 +40,7 @@
       </tr>
     </tbody>
   </table>
-
+</div>
   <app-movimentar
     *ngIf="mostrarModalMovimentacao"
     (enviarMostrarModalMovimentacao)="fecharMovimentacao()"
