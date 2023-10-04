@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { Produto } from 'app/_models/produto';
 import { ProdutoService } from 'app/_services/produto.service';
@@ -17,6 +17,10 @@ export class MovimentarComponent {
   @Input() movimentacaoRecebida: any;
 
   @Input() produtoRecebido: any;
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.cancelarMovimentacao();
+}
 
   produtoEnviado: null | Produto;
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Produto } from 'app/_models/produto';
 import { ProdutoService } from 'app/_services/produto.service';
 import { first } from 'rxjs';
@@ -17,6 +17,10 @@ export class ModalProdutosComponent {
   @Output() enviarMostrarModalProduto = new EventEmitter<void>();
 
   @Input() produtoRecebido: any;
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.cancelarProduto();
+}
 
   listaDeProdutos: Produto[];
 

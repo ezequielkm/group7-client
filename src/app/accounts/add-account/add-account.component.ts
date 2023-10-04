@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/_models/account';
 import { UserService } from 'app/_services/user.service'
@@ -20,6 +20,9 @@ export class AddAccountComponent {
 
   @Input() accountReceived: any;
 
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.cancelAccount();
+}
     roles: Role[] | any = [];
 
     loading = false;

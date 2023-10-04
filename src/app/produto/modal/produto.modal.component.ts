@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Produto } from 'app/_models/produto';
 
 @Component({
@@ -11,7 +11,9 @@ export class ProdutoModalComponent {
   @Output() enviarMostrarModalProduto = new EventEmitter<void>();
   @Output() novoProduto = new EventEmitter<Produto>();
   @Input() produtoRecebido: any;
-
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.cancelarProduto();
+}
   produto: Produto = {
     nome: "",
     tipo: "",
