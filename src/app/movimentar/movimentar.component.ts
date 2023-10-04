@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { Produto } from 'app/_models/produto';
 import { ProdutoService } from 'app/_services/produto.service';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-movimentar',

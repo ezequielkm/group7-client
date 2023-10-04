@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Movimentacao } from 'app/_models/movimentacao';
 import { MovimentacaoService } from 'app/_services/movimentacao.service';
 import { first } from 'rxjs';
+import { ProdutoService } from 'app/_services/produto.service';
+import { Produto } from 'app/_models/produto';
 
 @Component({
   selector: 'app-movimentacao',
@@ -17,12 +19,19 @@ export class MovimentacaoComponent {
   movimentacaoEnviada: null | Movimentacao;
   produtoEnviado: undefined | number;
 
+  produto: Produto = {
+    id: 0,
+    tipo: "",
+    nome: "",
+    vencimento: new Date()
+  };
+
   tiposDeMovimentacaos = [
     { desc: 'Entrada', val: 0},
     { desc: 'Saída', val: 1},
   ]
 
-  constructor(private movimentacaoService: MovimentacaoService) {
+  constructor(private movimentacaoService: MovimentacaoService, private produtoService: ProdutoService) {
     this.listaDeMovimentacoes = [];
     this.movimentacaoEnviada = new Movimentacao();
     this.produtoEnviado = 1
@@ -35,7 +44,29 @@ export class MovimentacaoComponent {
   buscarMovimentacoes() {
     this.movimentacaoService.getAll().pipe(first()).subscribe(movimentacao => {
       this.listaDeMovimentacoes = movimentacao;
+
+      this.listaDeMovimentacoes.forEach(element => {
+        this.getProduto(element.idProduto, element);
+      });
     });
+  }
+
+  getProduto(idProduto?: number, prod?: Movimentacao) {
+    if (!prod) { return; }
+
+    const data = {
+      id: idProduto
+    };
+
+    this.produtoService.getProduto(data).subscribe({
+      next: (produto) => this.editProduto(produto, prod),
+      error: (e) => {console.error(e), alert(e);}
+    });
+  }
+
+  editProduto(data: Produto[], prod: Movimentacao) {
+    this.produto = data[0];
+    prod.nomeDoProduto = data[0].nome;
   }
 
   salvarMovimentacao(movimentacao: Movimentacao) {

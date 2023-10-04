@@ -26,7 +26,6 @@ export class ProdutoService {
     }
 
     getProduto(data: any): Observable<any> {
-      console.log("AAAAA 1: " + data.id);
       return this.http.get<Produto>(`${environment.apiUrl}/produto/produto/${data.id}`);
     }
 }
