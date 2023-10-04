@@ -68,8 +68,6 @@ export class ProdutoComponent {
       next: (res) => this.buscarProdutos(),
       error: (e) => this.buscarProdutos()
     });
-
-    this.buscarProdutos();
   }
 
   abrirModalCadastrarProduto() {
@@ -87,7 +85,7 @@ export class ProdutoComponent {
     date = new Date(date);
   
     const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = String(date.getFullYear());
 
     return `${day}/${month}/${year}`;
