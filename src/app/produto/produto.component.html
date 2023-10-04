@@ -15,9 +15,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of listaDeProdutos">
-                <td style="text-align: right;">{{item.nome}}</td>
-                <td style="text-align: left;">{{item.tipo}}</td>
-                <td style="text-align: right;">{{item.vencimento}}</td>
+                <td (click)="editarProduto(item)" style="text-align: right;">{{item.nome}}</td>
+                <td (click)="editarProduto(item)" style="text-align: left;">{{item.tipo}}</td>
+                <td (click)="editarProduto(item)" style="text-align: right;">{{item.vencimento}}</td>
                 <td>
                   <button type="submit" class="btn btn-danger" style="cursor: pointer;" (click)="excluirProduto(item.id)">Excluir</button>
                 </td>

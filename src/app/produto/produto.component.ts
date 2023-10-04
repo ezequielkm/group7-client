@@ -29,18 +29,24 @@ export class ProdutoComponent {
     });
   }
 
-  salvarProduto(produto: Produto) {
-    this.produtoService.create(produto).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (e) => console.error(e)
-    });
-
-    this.buscarProdutos();
+  async salvarProduto(produto: Produto) {
+    if(produto.id)
+    {
+      this.produtoService.update(produto).subscribe({
+        next: (res) => this.buscarProdutos(),
+        error: (e) => this.buscarProdutos()
+      });
+    }
+    else
+    {
+      this.produtoService.create(produto).subscribe({
+        next: (res) => this.buscarProdutos(),
+        error: (e) => this.buscarProdutos()
+      });
+    }
   }
 
-  editarMovimentacao(produto: Produto) {
+  editarProduto(produto: Produto) {
     this.produtoEnviado = produto;
     this.mostrarModalCadastrarProduto = true;
   }
