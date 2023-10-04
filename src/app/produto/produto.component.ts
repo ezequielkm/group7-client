@@ -53,7 +53,6 @@ export class ProdutoComponent {
 
   editarProduto(produto: Produto) {
     produto.vencimento = this.formatDateUSA(produto.vencimento)
-    console.log(produto)
     this.produtoEnviado = produto;
     this.mostrarModalCadastrarProduto = true;
   }
@@ -66,12 +65,8 @@ export class ProdutoComponent {
     const data = { id: idParam };
 
     this.produtoService.delete(data).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (e) => {
-        console.error(e);
-      }
+      next: (res) => this.buscarProdutos(),
+      error: (e) => this.buscarProdutos()
     });
 
     this.buscarProdutos();
@@ -91,8 +86,8 @@ export class ProdutoComponent {
   {
     date = new Date(date);
   
-    const day = String(date.getDate() + 1).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth()).padStart(2, '0');
     const year = String(date.getFullYear());
 
     return `${day}/${month}/${year}`;
