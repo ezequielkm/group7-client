@@ -26,7 +26,7 @@ export class ProdutoComponent {
   buscarProdutos() {
     this.produtoService.getAll().pipe(first()).subscribe(produto => {
       produto = produto.map(produto => { 
-        produto.vencimento = this.formatDate(produto.vencimento)
+        produto.vencimento = this.formatDateBR(produto.vencimento)
         return  produto
       })
 
@@ -52,6 +52,8 @@ export class ProdutoComponent {
   }
 
   editarProduto(produto: Produto) {
+    produto.vencimento = this.formatDateUSA(produto.vencimento)
+    console.log(produto)
     this.produtoEnviado = produto;
     this.mostrarModalCadastrarProduto = true;
   }
@@ -85,14 +87,20 @@ export class ProdutoComponent {
     this.mostrarModalCadastrarProduto = false;
   }
 
-  formatDate(date: any)
+  formatDateBR(date: any)
   {
-    const data = new Date(date);
+    date = new Date(date);
   
-    const dia = String(data.getDate() + 1).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = String(data.getFullYear());
-  
-    return `${dia}/${mes}/${ano}`;
+    const day = String(date.getDate() + 1).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear());
+
+    return `${day}/${month}/${year}`;
+  }
+
+  formatDateUSA(date: any)
+  {
+    date = date.split("/");
+    return `${date[2]}-${date[1]}-${date[0]}`;
   }
 }
