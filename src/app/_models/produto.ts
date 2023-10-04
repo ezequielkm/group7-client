@@ -2,5 +2,5 @@ export class Produto {
   id?: number;
   tipo?: string;
   nome?: string;
-  vencimento?: Date;
+  vencimento?: any;
 }

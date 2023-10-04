@@ -25,6 +25,11 @@ export class ProdutoComponent {
 
   buscarProdutos() {
     this.produtoService.getAll().pipe(first()).subscribe(produto => {
+      produto = produto.map(produto => { 
+        produto.vencimento = this.formatDate(produto.vencimento)
+        return  produto
+      })
+
       this.listaDeProdutos = produto;
     });
   }
@@ -78,5 +83,16 @@ export class ProdutoComponent {
   fecharModalCadastrarProduto() {
     this.produtoEnviado = null;
     this.mostrarModalCadastrarProduto = false;
+  }
+
+  formatDate(date: any)
+  {
+    const data = new Date(date);
+  
+    const dia = String(data.getDate() + 1).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = String(data.getFullYear());
+  
+    return `${dia}/${mes}/${ano}`;
   }
 }
